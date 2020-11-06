@@ -38,6 +38,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Output Management'
     }),
+    //new webpack.HashedModuleIdsPlugin(),
     new webpack.NamedModulesPlugin(),
    // new webpack.HotModuleReplacementPlugin()
   //  new webpack.optimize.CommonsChunkPlugin({

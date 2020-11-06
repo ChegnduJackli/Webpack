@@ -1,5 +1,6 @@
 # For projects that use the Waf build system: https://waf.io/
 # Dot-hidden on Unix-like systems
+# https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository#_ignoring
 .waf-*-*/
 .waf3-*-*/
 # Hidden directory on Windows (no dot)
