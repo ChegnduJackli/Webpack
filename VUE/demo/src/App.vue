@@ -6,7 +6,7 @@
             <router-link to="/computedDemo">计算属性</router-link>
             <router-link to="/lifeCircleDemo">生命周期</router-link>
             <router-link to="/todo">To Do List</router-link>
-            <router-link to="/helloworld">hellow world</router-link>
+            <router-link to="/helloworld">组件基础</router-link>
             <router-link to="/elementUIDemo">element ui demo </router-link>
         
         </li>

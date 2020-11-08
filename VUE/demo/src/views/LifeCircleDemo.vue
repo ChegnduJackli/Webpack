@@ -22,16 +22,16 @@ export default {
     },
     created() {
         alert(document.getElementById('name'));
-        alert('Created');
+       //alert('Created');
     },
     destroyed() {
-        alert('destroyed');
+       // alert('destroyed');
     },
     mounted() {
-        alert(document.getElementById('name'));
+       // alert(document.getElementById('name'));
     },
     updated() {
-        alert('updated');
+        //alert('updated');
     }
 }
 </script>
