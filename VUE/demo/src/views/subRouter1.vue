@@ -1,13 +1,12 @@
 <template>
     <div>
-        <h1>hello world {{ msg }} title； {{ title }}</h1>
-        <h2>age:{{ age }}, isPublished:{{ isPublished }}</h2>
+  sub router 1
     </div>
 </template>
 
 <script>
 export default {
-    name: "baseButton",
+    name: "subRouter1",
     //props: ['title'],
     //每个 prop 都有指定的值类型
     props: {

@@ -5,18 +5,28 @@
             鼠标悬停几秒钟查看此处动态绑定的提示信息！
         </span>
         <p>Reversed message: "{{ reversedMessage }}"</p>
+      
         <p>
             Ask a yes/no question:
             <input v-model="question" />
         </p>
         <p>{{ answer }}</p>
+        <hr />
+        <button @click="comTest()">调用混入</button>
+        <input v-focus />
+        <div id="dynamicexample">
+            <h3>Scroll down inside this section ↓</h3>
+            <p v-pin:[direction]="200">
+                I am pinned onto the page at 200px to the left.
+            </p>
+        </div>
     </div>
 </template>
 
 <script>
 import DemoMixin from "../Mixins/DemoMixin";
-import _ from 'lodash';
-import  axios from 'axios';
+import _ from "lodash";
+import axios from "axios";
 
 export default {
     mixins: [DemoMixin],
@@ -28,7 +38,8 @@ export default {
             message: "页面加载于 " + new Date().toLocaleString(),
             message2: "hello",
             question: "",
-            answer: "I cannot give you an answer until you ask a question!"
+            answer: "I cannot give you an answer until you ask a question!",
+            direction: "left"
         };
     },
     methods: {
@@ -85,9 +96,35 @@ export default {
         // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
         // 请参考：https://lodash.com/docs#debounce
         this.debouncedGetAnswer = _.debounce(this.getAnswer, 500);
+
+        //同名钩子函数将合并为一个数组，因此都将被调用。另外，混入对象的钩子将在组件自身钩子之前调用。
+        console.log("组件钩子被调用");
+        console.log("this data", this.$data);
     },
     destroyed() {},
-    mounted() {}
+    mounted() {},
+    directives: {
+        focus: {
+            bind: function() {
+                console.log("bind called");
+            },
+            // 指令的定义
+            inserted: function(el) {
+                el.focus();
+            },
+            unbind: function() {
+                console.log("unbind called");
+            }
+        },
+        pin: {
+            bind: function(el, binding, vnode) {
+                console.log("binding", binding);
+                el.style.position = "fixed";
+                var s = binding.arg == "left" ? "left" : "top";
+                el.style[s] = binding.value + "px";
+            }
+        }
+    }
 };
 </script>
 

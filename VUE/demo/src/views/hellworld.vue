@@ -1,91 +1,80 @@
 <template>
-    <div>
-        <h1>hello world {{ msg }}</h1>
+<div>
+    <h1>hello world {{ msg }}</h1>
 
-        <h3>引入子组件,参数传递</h3>
-        <input v-model="myTitle" />
+    <h3>引入子组件,参数传递</h3>
+    <input v-model="myTitle" />
 
-        <base-button
-            :title="myTitle"
-            :age="12"
-            :is-published="true"
-        ></base-button>
-        <el-row>
-            <el-col :span="12">
-                <div :style="{ fontSize: postFontSize + 'em' }">
-                    <blog-post
-                        v-for="post in posts"
-                        v-bind:key="post.id"
-                        v-bind:post="post"
-                        v-on:enlarge-text="postFontSize += 0.1"
-                        v-on:small-text="postFontSize -= 0.1"
-                    ></blog-post>
-                </div>
-            </el-col>
+    <base-button :title="myTitle" :age="12" :is-published="true"></base-button>
+    <el-row>
+        <el-col :span="12">
+            <div :style="{ fontSize: postFontSize + 'em' }">
+                <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post" v-on:enlarge-text="postFontSize += 0.1" v-on:small-text="postFontSize -= 0.1"></blog-post>
+            </div>
+        </el-col>
 
-            <el-col :span="12">
-                <div class="header">
-                    通过子组件向父级传递参数，使用事件抛出一个值
-                    https://cn.vuejs.org/v2/guide/components.html?
-                </div>
-                <div :style="{ fontSize: postFontSize + 'em' }">
-                    <blog-post3
-                        v-for="post in posts"
-                        v-bind:key="post.id"
-                        v-bind:post="post"
-                        v-on:enlarge-text="onEnlargeText"
-                        v-on:small-text="postFontSize -= 0.1"
-                    ></blog-post3>
-                </div>
-            </el-col>
-        </el-row>
-        <hr />
-        <el-row>
-            <el-col :span="12">
-                <base-checkbox v-model="lovingVue"></base-checkbox>
-                <current-user>
-                    <template v-slot:user="slotProps">
-                        {{ slotProps.user.firstName }}
-                        <div>
-                            现在在父级作用域中，我们可以使用带值的 v-slot
-                            来定义我们提供的插槽 prop 的名字：
-                        </div>
-                    </template>
-                    <template #blog="slotBlog">
-                        {{ slotBlog.blog.age }}
-                        <div>具名插槽的缩写</div>
-                    </template>
-                </current-user>
-            </el-col>
-            <el-col :span="12">
-                <base-layout>
-                    <template v-slot:header>
-                        <h1>Here might be a page title</h1>
-                    </template>
-                    <template v-slot:default>
-                        <p>A paragraph for the main content.</p>
-                        <p>And another one.</p>
-                    </template>
-                    <template v-slot:footer>
-                        <p>Here's some contact info</p>
-                    </template>
-                </base-layout>
-            </el-col>
-        </el-row>
-        <hr />
-        <el-row>
-            <el-col :span="12">
-                <my-com
-                    :show.sync="valueChild"
-                    @closeDiv="closeDivFromParent"
-                    style="padding: 30px 20px 30px 5px;border:1px solid #ddd;margin-bottom: 10px;"
-                ></my-com>
-                <button @click="changeValue">toggle</button>
-            </el-col>
-        </el-row>
-        <button v-on:click="submitform">submit</button>
-    </div>
+        <el-col :span="12">
+            <div class="header">
+                通过子组件向父级传递参数，使用事件抛出一个值
+                https://cn.vuejs.org/v2/guide/components.html?
+            </div>
+            <div :style="{ fontSize: postFontSize + 'em' }">
+                <blog-post3 v-for="post in posts" v-bind:key="post.id" v-bind:post="post" v-on:enlarge-text="onEnlargeText" v-on:small-text="postFontSize -= 0.1"></blog-post3>
+            </div>
+        </el-col>
+    </el-row>
+    <hr />
+    <el-row>
+        <el-col :span="12">
+            <base-checkbox v-model="lovingVue"></base-checkbox>
+            <current-user>
+                <template v-slot:user="slotProps">
+                    {{ slotProps.user.firstName }}
+                    <div>
+                        现在在父级作用域中，我们可以使用带值的 v-slot
+                        来定义我们提供的插槽 prop 的名字：
+                    </div>
+                </template>
+                <template #blog="slotBlog">
+                    {{ slotBlog.blog.age }}
+                    <div>具名插槽的缩写</div>
+                </template>
+            </current-user>
+        </el-col>
+        <el-col :span="12">
+            <base-layout>
+                <template v-slot:header>
+                    <h1>Here might be a page title</h1>
+                </template>
+                <template v-slot:default>
+                    <p>A paragraph for the main content.</p>
+                    <p>And another one.</p>
+                </template>
+                <template v-slot:footer>
+                    <p>Here's some contact info</p>
+                </template>
+            </base-layout>
+        </el-col>
+    </el-row>
+    <hr />
+    <el-row>
+        <el-col :span="12">
+            <my-com :show.sync="valueChild" @closeDiv="closeDivFromParent" style="padding: 30px 20px 30px 5px;border:1px solid #ddd;margin-bottom: 10px;"></my-com>
+            <button @click="changeValue">toggle</button>
+        </el-col>
+    </el-row>
+    <hr />
+    <el-row>
+        <el-col :span="12">
+            <anchored-heading :level="1">Hello world!</anchored-heading>
+            <anchored-heading :level="2">Hello world!</anchored-heading>
+        </el-col>
+        <el-col :span="12"> </el-col>
+    </el-row>
+    <button v-on:click="submitform">submit</button>
+</div>
 </template>
+
 <style scoped>
 .bg-purple-dark {
     background: #99a9bf;
@@ -104,6 +93,7 @@
     min-height: 36px;
 }
 </style>
+
 <script>
 import baseButton from "./baseButton.vue";
 var blog_post = {
@@ -197,9 +187,56 @@ var currentUser = {
 `,
     data() {
         return {
-            user: { firstName: "jack", lastName: "rose" },
-            blog: { name: "blog", age: 120 }
+            user: {
+                firstName: "jack",
+                lastName: "rose"
+            },
+            blog: {
+                name: "blog",
+                age: 120
+            }
         };
+    }
+};
+
+
+//渲染函数
+var getChildrenTextContent = function (children) {
+    return children.map(function (node) {
+        return node.children ?
+            getChildrenTextContent(node.children) :
+            node.text
+    }).join('')
+}
+var anchoredHeading = {
+    render: function (createElement) {
+        debugger;
+        // return createElement(
+        //     "h" + this.level, // 标签名称
+        //     this.$slots.default // 子节点数组
+        // );
+        // 创建 kebab-case 风格的 ID
+        var headingId = getChildrenTextContent(this.$slots.default)
+            .toLowerCase()
+            .replace(/\W+/g, "-")
+            .replace(/(^-|-$)/g, "");
+        return createElement("h" + this.level, [
+            createElement(
+                "a", {
+                    attrs: {
+                        name: headingId,
+                        href: "#" + headingId
+                    }
+                },
+                this.$slots.default
+            )
+        ]);
+    },
+    props: {
+        level: {
+            type: Number,
+            required: true
+        }
     }
 };
 
@@ -212,7 +249,8 @@ export default {
         "base-checkbox": base_checkbox,
         "my-com": myCom,
         "base-layout": baseLayout,
-        "current-user": currentUser
+        "current-user": currentUser,
+        "anchored-heading": anchoredHeading
     },
     data() {
         return {
@@ -221,18 +259,29 @@ export default {
             postFontSize: 1,
             lovingVue: true,
             valueChild: true,
-            posts: [
-                { id: 1, title: "My journey with Vue", content: "good job1" },
-                { id: 2, title: "Blogging with Vue", content: "good job2" },
-                { id: 3, title: "Why Vue is so fun", content: "good job3" }
+            posts: [{
+                    id: 1,
+                    title: "My journey with Vue",
+                    content: "good job1"
+                },
+                {
+                    id: 2,
+                    title: "Blogging with Vue",
+                    content: "good job2"
+                },
+                {
+                    id: 3,
+                    title: "Why Vue is so fun",
+                    content: "good job3"
+                }
             ]
         };
     },
     methods: {
-        onEnlargeText: function(enlargeAmount) {
+        onEnlargeText: function (enlargeAmount) {
             this.postFontSize += enlargeAmount;
         },
-        submitform: function() {
+        submitform: function () {
             var evens = [1, 2, 3, 4, 5, 6, 7, 8];
             var odds = evens.map(v => v + 1);
             var nums = evens.map((v, i) => v + i);
@@ -252,10 +301,10 @@ export default {
             debugger;
         },
 
-        changeValue: function() {
+        changeValue: function () {
             this.valueChild = !this.valueChild;
         },
-        closeDivFromParent: function() {
+        closeDivFromParent: function () {
             console.log("closeDivFromParent");
             this.valueChild = !this.valueChild;
         }

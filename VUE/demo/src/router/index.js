@@ -11,7 +11,10 @@ import ComputedDemo from '../views/ComputedDemo.vue'
 import LifeCircleDemo from '../views/LifeCircleDemo.vue'
 import NotFound from '../views/NotFound.vue'
 import ToDoList from '../views/ToDoList.vue'
-
+import animation from '../views/animation.vue';
+import subRouter from '../views/subRouter.vue';
+import subRouter1 from '../views/subRouter1.vue';
+import subRouter2 from '../views/subRouter2.vue';
 
 Vue.use(Router);
 Vue.use(ElementUI)
@@ -54,8 +57,30 @@ export default new Router({
             path:'/elementUIDemo', //path必须要跟app.vue中的routerLink 完全一致
             name:'elementUIDemo',
             component:elementUIDemo,
+
         },
-        
+        {
+            path:'/animation',
+            name:'animation',
+            component:animation
+        },
+        {
+            path:'/subRouter',
+            name:'subRouter',
+            component:subRouter,
+            children:[
+                {
+                    path:'subRouter1',
+                    name:'subRouter1',
+                    component:subRouter1,
+                },
+                {
+                    path:'subRouter2',
+                    name:'subRouter2',
+                    component:subRouter2,
+                }
+            ]
+        },
         {
             path: '*',
             name: '404',
