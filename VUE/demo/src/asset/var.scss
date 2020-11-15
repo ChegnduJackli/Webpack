@@ -1,2 +1,13 @@
 $header-color: orange;
 $header-size: 20px;
+$color-orange:#d04a02;
+$color-white:#fff;
+
+@mixin a-active {
+    color:$color-white;
+    background-color: $color-orange;
+}
+
+@mixin a-hover {
+    color:$color-orange;
+}
