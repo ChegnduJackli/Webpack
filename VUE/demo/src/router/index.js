@@ -15,6 +15,7 @@ import animation from '../views/animation.vue';
 import subRouter from '../views/subRouter.vue';
 import subRouter1 from '../views/subRouter1.vue';
 import subRouter2 from '../views/subRouter2.vue';
+import async from '../views/async.vue';
 
 import dynamicComponetDemo from '../views/dynamic-componet-demo.vue';
 
@@ -92,6 +93,12 @@ export default new Router({
                     path:'dynamicComponetDemo',
                     name:'dynamicComponetDemo',
                     component:dynamicComponetDemo,
+                    meta: { keepAlive: true },
+                },
+                {
+                    path:'async',
+                    name:'async',
+                    component:async,
                     meta: { keepAlive: true },
                 }
             ]

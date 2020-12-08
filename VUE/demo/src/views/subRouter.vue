@@ -20,6 +20,13 @@
               >dynamic Componet Demo</router-link
             >
           </li>
+              <li>
+            <router-link
+              :to="{ name: 'async' }"
+              active-class="active"
+              >es6 async </router-link
+            >
+          </li>
         </ul>
       </el-col>
       <el-col :span="18" class="right-content">
