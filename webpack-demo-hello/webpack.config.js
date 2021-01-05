@@ -35,6 +35,7 @@ module.exports = {
 
   plugins: [
     new CleanWebpackPlugin(), //清理dist文件夹
+    //HtmlWebpackPlugin  会默认生成新的index.html.
     new HtmlWebpackPlugin({
       title: 'Output Management'
     }),
@@ -65,10 +66,15 @@ module.exports = {
   output: {
     //filename: "bundle.js",
     //filename: '[name].bundle.js',
-    filename: '[name].[contenthash].js',
+   // filename: '[name].[contenthash].js',
+   filename: '[name].[hash].js',
     path: path.resolve(__dirname, "dist"),
     publicPath: '/' //npm run server
   },
-  mode: "production"
-
+  mode: "production",
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+}
 };
