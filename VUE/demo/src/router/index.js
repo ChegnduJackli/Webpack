@@ -15,6 +15,7 @@ import animation from '../views/animation.vue';
 import subRouter from '../views/subRouter.vue';
 import subRouter1 from '../views/subRouter1.vue';
 import subRouter2 from '../views/subRouter2.vue';
+import subRouter3_vuex from '../views/subRouter3-vuex.vue';
 import async from '../views/async.vue';
 
 import dynamicComponetDemo from '../views/dynamic-componet-demo.vue';
@@ -87,6 +88,12 @@ export default new Router({
                     path:'subRouter2',
                     name:'subRouter2',
                     component:subRouter2,
+                    meta: { keepAlive: true },
+                },
+                {
+                    path:'subRouter3_vuex',
+                    name:'subRouter3_vuex',
+                    component:subRouter3_vuex,
                     meta: { keepAlive: true },
                 },
                 {

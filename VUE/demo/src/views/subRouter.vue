@@ -13,6 +13,14 @@
               >subRouter2</router-link
             >
           </li>
+                <li>
+            <router-link :to="{ name: 'subRouter3_vuex' }" active-class="active"
+              >subRouter3 vuex study</router-link
+            >
+          </li>
+
+          
+
           <li>
             <router-link
               :to="{ name: 'dynamicComponetDemo' }"
