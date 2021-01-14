@@ -11,13 +11,13 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
-    "axios": "^0.21.0",
-    "bootstrap": "^4.4.1",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.5.3",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
     "popper.js": "^1.16.1",
-    "vue": "^2.5.11",
-    "vue-router": "^3.0.1",
+    "vue": "^2.6.12",
+    "vue-router": "^3.4.9",
     "vuex": "^3.6.0"
   },
   "browserslist": [
@@ -35,12 +35,12 @@
     "babel-preset-stage-3": "^6.24.1",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
-    "element-ui": "^2.13.2",
+    "element-ui": "^2.14.1",
     "file-loader": "^1.1.4",
     "node-sass": "^4.10.0",
     "sass-loader": "^6.0.6",
     "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4",
+    "vue-template-compiler": "^2.6.12",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1",
     "write-file-webpack-plugin": "^4.3.2"
