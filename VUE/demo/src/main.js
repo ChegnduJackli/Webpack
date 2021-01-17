@@ -16,6 +16,8 @@ import {
     SOME_MUTATION
 } from './constant/mutation-type'
 
+
+
 //token 
 //setToken('Basic U0FQSk9CQVBJQUNDT1VOVDpTQVBKT0JBUElBQ0NPVU5U');
 

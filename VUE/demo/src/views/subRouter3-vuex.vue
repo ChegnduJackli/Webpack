@@ -5,23 +5,29 @@
     <button class="button" @click="incrementPayload">count ++10</button>
     <button class="button" @click="incrementPayloadConstant">count constant ++20</button>
     <button class="button" @click="decrement">count --</button>
-<div>getter</div>
-<button class="button" @click="visitGetter">访问getter</button>
+    <div>getter</div>
+    <button class="button" @click="visitGetter">访问getter</button>
 
-<div>
-  用mapMutations 
-</div>
-        <!-- <button class="button" @click="increment">count ++</button>
+    <div>
+      用mapMutations
+    </div>
+    <!-- <button class="button" @click="increment">count ++</button>
     <button class="button" @click="incrementPayloadMount(10)">count ++10</button>
 
     <button class="button" @click="add">count ++  rename to add</button> -->
 
-<div>
-  action 
-</div>
-  <button class="button" @click="incrementUserAction">action count ++</button>
+    <div>
+      action
+    </div>
+    <button class="button" @click="incrementUserAction">action count ++</button>
+    <button class="button" @click="incrementUserPayloadAction">action payload count ++100</button>
+    <button class="button" @click="incrementSyncPromise">action promise count ++</button>
+    <div>store模块化</div>
+    <button class="button" @click="incrementSubModule">sub Module mutation count ++</button>
+        <button class="button" @click="incrementSubModuleAction">sub Module a action count ++</button>
+    <div>count: {{ count }}</div>
+    <div>countModuleA: {{ countModuleA }}</div>
 
-    <div>count: {{ count }}</div> 
   </div>
 </template>
 
@@ -82,18 +88,58 @@ export default {
       this.$store.commit("decrement");
       console.log("store count minus", this.$store.state.count);
     },
-    visitGetter(){
-       console.log("store getter", this.$store.getters.doneTodos );
-        console.log("store getter by id", this.$store.getters.getTodoById(2) );
+    visitGetter() {
+      console.log("store getter", this.$store.getters.doneTodos);
+      console.log("store getter by id", this.$store.getters.getTodoById(2));
     },
-    incrementUserAction(){
+    incrementUserAction() {
       this.$store.dispatch('incrementAsync');
+    },
+
+    //Actions 支持同样的载荷方式和对象方式进行分发：
+    incrementUserPayloadAction() {
+      // 以载荷形式分发
+      this.$store.dispatch('incrementPayloadAsync', {
+        amount: 10
+      })
+      //对象方式进行分发：
+      this.$store.dispatch({
+        type: 'incrementPayloadAsync',
+        amount: 100
+      });
+    },
+    incrementSyncPromise() {
+      this.$store.dispatch({
+        type: 'incrementSyncPromise',
+      }).then((res) => {
+        console.log('res', res);
+      });
+    },
+    incrementSubModule() {
+      //rooter
+      this.$store.commit({
+        type: "incrementPayload",
+        amount: 11,
+      });
+      //子模块，必须加namespace:true;
+      this.$store.commit('a/increment');
+
+    },
+    //访问Module a 的action
+    incrementSubModuleAction() {
+      this.$store.dispatch({
+        type: 'a/incrementIfOddOnRootSum',
+      });
     }
+    //incrementIfOddOnRootSum
   },
   computed: {
     count() {
       return this.$store.state.count;
     },
+    countModuleA() {
+      return this.$store.state.a.count;
+    }
   },
 };
 </script>
