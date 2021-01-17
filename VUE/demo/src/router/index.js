@@ -18,6 +18,9 @@ import subRouter2 from '../views/subRouter2.vue';
 import subRouter3_vuex from '../views/subRouter3-vuex.vue';
 import async from '../views/async.vue';
 
+import element_table_demo from  '../views/element-table-demo';
+import pageslide from  '../views/element-pageslide-demo';
+
 import dynamicComponetDemo from '../views/dynamic-componet-demo.vue';
 
 Vue.use(Router);
@@ -64,6 +67,21 @@ export default new Router({
             name:'elementUIDemo',
             component:elementUIDemo,
             meta: { keepAlive: true },
+            children:[
+                {
+                    path: 'table',
+                    component:element_table_demo,
+                    name: 'elementUIDemo.table',
+                    meta: { keepAlive: true },
+                },
+                {
+                    path: 'pageSlide',
+                   // component: () => import('../views/element-pageslide-demo'),
+                   component:pageslide,
+                    name: 'elementUIDemo.pageSlide',
+                    meta: { keepAlive: true },
+                }
+            ]
 
         },
         {
@@ -107,7 +125,16 @@ export default new Router({
                     name:'async',
                     component:async,
                     meta: { keepAlive: true },
-                }
+                },
+                
+                      {
+                    path:'slot',
+                    name:'slot',
+                    //component:async,
+                    //// 这个动态导入会返回一个 `Promise` 对象。
+                     component: () => import('../views/subRouterSlot'),
+                    meta: { keepAlive: true },
+                },
             ]
         },
         {

@@ -1,105 +1,121 @@
 <template>
-    <div>
-        <el-row>
-            <el-col :span="12"
-                ><div class="grid-content bg-purple">test</div></el-col
+  <div>
+    <el-row>
+      <el-col :span="6">
+        <ul class="left-menu">
+          <!-- <li>
+            <router-link to="/elementUIDemo.table" active-class="active"
+              >table</router-link
             >
-            <el-col :span="12"
-                ><div class="grid-content bg-purple-light">
-                    test2 {{ msg }}
-                </div></el-col
+          </li> -->
+          <li>
+            <router-link
+              :to="{ name: 'elementUIDemo.table' }"
+              active-class="active"
+              >table</router-link
             >
-        </el-row>
-        <el-row>
-            <el-col :span="6">
-                <el-button
-                    v-on:click="handleOpen"
-                    type="primary"
-                    style="margin-left: 16px;"
-                >
-                    点我打开
-                </el-button>
-
-                <page-slide
-                    v-bind:is-open="isOpenMoal"
-                    v-on:beforeClose="beforeClose"
-                    v-on:afterClose="afterClose"
-                >
-                <table>
-                    <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                            <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                            <tr>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                    </tr>
-                </table>
-                </page-slide>
-            </el-col>
-            <el-col :span="18"></el-col>
-        </el-row>
-    </div>
+          </li>
+          <li>
+            <router-link
+              :to="{ name: 'elementUIDemo.pageSlide' }"
+              active-class="active"
+              >pageSlide</router-link
+            >
+          </li>
+        </ul>
+      </el-col>
+      <el-col :span="18" class="right-content">
+        <router-view></router-view>
+      </el-col>
+    </el-row>
+  </div>
 </template>
+<style lang="scss" scoped>
+@import "../asset/var.scss";
+.left-menu{
+    background-color: #fbf9f9;;
+}
+ul li {
+  padding: 10px 0;
+  list-style: none;
+  a {
+    text-decoration: none;
+    padding: 10px ;
+    width:100px;
+    &:hover {
+        @include a-hover;
 
-<style scoped>
+    }
+    &.active {
+     @include a-active;
+    }
+  }
+}
+.right-content {
+  border: solid 2px #f2f2f2;
+  height: 100%;
+}
+
+.content {
+  width: 1200px;
+
+  margin: 0 auto;
+}
+
+.content .button {
+  border-raduis: 25px;
+}
+
 .bg-purple-dark {
-    background: #99a9bf;
+  background: #99a9bf;
 }
 
 .bg-purple {
-    background: #464647;
+  background: #464647;
 }
 
 .bg-purple-light {
-    background: #e5e9f2;
+  background: #e5e9f2;
 }
 
 .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
+  border-radius: 4px;
+  min-height: 36px;
 }
 </style>
 <script>
-import pageSlide from "../component/pageslide.vue";
+// import pageSlide from "../component/pageslide.vue";
 
 export default {
-    name: "elementui",
-    components: {
-        "page-slide": pageSlide
+  name: "elementui",
+  components: {
+    // "page-slide": pageSlide,
+  },
+  data() {
+    return {
+      msg: "jack",
+      isOpenMoal: false,
+    };
+  },
+  methods: {
+    handleOpen: function () {
+      this.isOpenMoal = true;
     },
-    data() {
-        return {
-            msg: "jack",
-            isOpenMoal: false
-        };
+    beforeClose: function (done) {
+      console.log("beforeclose");
+
+      this.$confirm("确认关闭？")
+        .then((_) => {
+          //done();
+          this.isOpenMoal = false;
+          console.log(this.isOpenMoal);
+        })
+        .catch((_) => {});
     },
-    methods: {
-        handleOpen: function() {
-            this.isOpenMoal = true;
-        },
-        beforeClose: function(done) {
-            console.log("beforeclose");
-            
-          this.$confirm("确认关闭？")
-                .then(_ => {
-                     //done();
-                         this.isOpenMoal = false;
-                     console.log(this.isOpenMoal);
-                })
-                .catch(_ => {});
-        },
-        afterClose: function() {
-            console.log("afterClose");
-            this.isOpenMoal = false;
-        }
-    }
+    afterClose: function () {
+      console.log("afterClose");
+      this.isOpenMoal = false;
+    },
+  },
 };
 </script>

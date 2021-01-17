@@ -8,6 +8,19 @@
           call cargill api with axios
         </button>
       </el-header>
+      <!-- <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post"
+        >test</blog-post> -->
+
+      <div id="blog-posts-events-demo">
+        <div :style="{ fontSize: postFontSize + 'em' }">
+          <blog-post
+            v-for="post in posts"
+            v-bind:key="post.id"
+            v-bind:post="post"
+            v-on:enlargeText="onEnlargeText"
+          ></blog-post>
+        </div>
+      </div>
     </el-container>
   </div>
 </template>
@@ -42,6 +55,8 @@
 
 <script>
 import buttonCss from "../component/buttonCss.vue";
+import blogPost from "../component/blogPost";
+
 import request from "../utils/request";
 import { syncSettlementData } from "../utils/cargill";
 
@@ -57,12 +72,25 @@ export default {
   data() {
     return {
       msg: "base button",
+
+      posts: [
+        { id: 1, title: "My journey with Vue", content: "this is a content" },
+        { id: 2, title: "Blogging with Vue" },
+        { id: 3, title: "Why Vue is so fun" },
+      ],
+      postFontSize: 1,
     };
   },
   components: {
     "button-css": buttonCss,
+    blogPost,
   },
   methods: {
+    onEnlargeText: function (enlargeAmount) {
+      console.log("call onEnlargeText from parent ", enlargeAmount);
+      this.postFontSize += enlargeAmount;
+    },
+
     callApexApi() {
       var param = {
         DispatchNo: "tes1",

@@ -5,7 +5,7 @@
         <ul class="left-menu">
           <li>
             <router-link to="/subRouter/subRouter1" active-class="active"
-              >subRouter1</router-link
+              >父子组件传递</router-link
             >
           </li>
           <li>
@@ -33,6 +33,13 @@
               :to="{ name: 'async' }"
               active-class="active"
               >es6 async </router-link
+            >
+          </li>
+                       <li>
+            <router-link
+              :to="{ name: 'slot' }"
+              active-class="active"
+              >插槽slot </router-link
             >
           </li>
         </ul>
