@@ -80,7 +80,16 @@ export default new Router({
                    component:pageslide,
                     name: 'elementUIDemo.pageSlide',
                     meta: { keepAlive: true },
-                }
+                },
+                {
+                    path: 'formValidate',
+                    component: () => import('../views/form-validate'),
+                  // component:pageslide,
+                    name: 'elementUIDemo.formValidate',
+                    meta: { keepAlive: true },
+                },
+             
+
             ]
 
         },

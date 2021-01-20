@@ -22,6 +22,13 @@
               >pageSlide</router-link
             >
           </li>
+                <li>
+            <router-link
+              :to="{ name: 'elementUIDemo.formValidate' }"
+              active-class="active"
+              >form validate</router-link
+            >
+          </li>
         </ul>
       </el-col>
       <el-col :span="18" class="right-content">
