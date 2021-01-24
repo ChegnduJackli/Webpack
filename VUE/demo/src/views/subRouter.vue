@@ -42,6 +42,14 @@
               >插槽slot </router-link
             >
           </li>
+                            <li>
+            <router-link
+              :to="{ name: 'helloTs' }"
+              active-class="active"
+              >hello typescript </router-link
+            >
+          </li>
+          
         </ul>
       </el-col>
       <el-col :span="18" class="right-content">

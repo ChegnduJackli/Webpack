@@ -22,6 +22,13 @@
               >pageSlide</router-link
             >
           </li>
+               <li>
+            <router-link
+              :to="{ name: 'elementUIDemo.ckDialog' }"
+              active-class="active"
+              >ckDialog</router-link
+            >
+          </li>
         </ul>
       </el-col>
       <el-col :span="18" class="right-content">

@@ -74,7 +74,7 @@ export default {
       //提交 mutation 的另一种方式是直接使用包含 type 属性的对象：
       this.$store.commit({
         type: "incrementPayload",
-        amount: 11,
+        amount: 10,
       });
     },
     //常量作为函数名，

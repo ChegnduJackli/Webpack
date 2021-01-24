@@ -80,9 +80,17 @@ export default new Router({
                    component:pageslide,
                     name: 'elementUIDemo.pageSlide',
                     meta: { keepAlive: true },
-                }
-            ]
-
+                },
+                {
+                    path:'ckDialog',
+                    name: 'elementUIDemo.ckDialog',
+                    //component:async,
+                    //// 这个动态导入会返回一个 `Promise` 对象。
+                     component: () => import('../views/element-ui-dialog'),
+                    meta: { keepAlive: true },
+                },
+            
+            ],
         },
         {
             path:'/animation',
@@ -133,6 +141,15 @@ export default new Router({
                     //component:async,
                     //// 这个动态导入会返回一个 `Promise` 对象。
                      component: () => import('../views/subRouterSlot'),
+                    meta: { keepAlive: true },
+                },
+                         
+                      {
+                    path:'helloTs',
+                    name:'helloTs',
+                    //component:async,
+                    //// 这个动态导入会返回一个 `Promise` 对象。
+                     component: () => import('../views/helloTs'),
                     meta: { keepAlive: true },
                 },
             ]

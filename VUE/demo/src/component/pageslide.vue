@@ -1,7 +1,7 @@
 <template>
     <el-drawer
         title="我是标题"
-        :visible.sync="isOpen"
+        :visible="isOpen"
         :direction="direction"
         :before-close="beforeClose"
         :close-on-press-escape="true"
@@ -27,7 +27,9 @@ export default {
     },
     methods: {
         beforeClose() {
-            this.$emit("beforeClose");
+            //this.$emit("beforeClose");
+  
+            this.$emit('update:isOpen',false)
         },
     
         handleClose(done) {

@@ -1,0 +1,91 @@
+<template>
+  <el-dialog
+    title="提示2"
+    :center="false"
+    :append-to-body="false"
+    :close-on-click-modal="true"
+    :visible.sync="dialogVisible"
+    top="15vh"
+    :before-close="handleClose"
+    custom-class="dialog-custom"
+  >
+    <el-scrollbar wrap-style="overflow-x: hidden;" style="height: 100%">
+      <slot name="content"></slot>
+    </el-scrollbar>
+     <slot name="footer">
+ <!-- <span slot="footer" class="dialog-footer">
+      <el-button @click="OnClose">取 消</el-button>
+      <el-button type="primary" @click="OnClose">确 定</el-button>
+    </span> -->
+
+     </slot>
+  <!-- <span slot="footer" class="dialog-footer">
+      <el-button @click="OnClose">取 消</el-button>
+      <el-button type="primary" @click="OnClose">确 定</el-button>
+    </span> -->
+  </el-dialog>
+</template>
+
+<style lang="scss">
+.dialog-custom {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-top: 15vh; //先用element ui dialog默认的高度
+  margin-bottom: auto; //解决高度80% + 15vh + 50px > 屏幕高度出现外侧滚动条
+  .el-dialog__header {
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .el-dialog__footer {
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .el-dialog__body {
+    flex: 1;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 1199) {
+  //<=1199的设备 }
+  /deep/ .el-dialog .dialog-custom {
+    width: 80%;
+  }
+}
+@media (max-width: 991px) {
+  //<=991的设备 }
+  .dialog-custom {
+    width: 90%;
+  }
+}
+</style>
+<script>
+//import { customer } from "@/data/custom";
+
+export default {
+      props: {
+    dialogShow: {
+      type: Boolean,
+      default: false
+    }
+    },
+  data() {
+    return {
+      dialogVisible: this.dialogShow,
+      //gridData: customer,
+    };
+  },
+  methods: {
+    handleClose(done) {
+      done();
+      // this.$confirm('确认关闭？')
+      //   .then(_ => {
+      //     done();
+      //   })
+      //   .catch(_ => { });
+    },
+  },
+};
+</script>

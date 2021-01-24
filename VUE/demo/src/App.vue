@@ -1,65 +1,29 @@
 <template>
-    <div class="page">
-        <el-container class="page-container">
-            <el-header>
-                <ul>
-                    <li>
-                        <router-link to="/home" active-class="active">home</router-link>
-                        <router-link to="/computedDemo" active-class="active">计算属性</router-link>
-                        <router-link to="/lifeCircleDemo" active-class="active">生命周期</router-link>
-                        <router-link to="/todo" active-class="active">To Do List</router-link>
-                        <router-link to="/helloworld" active-class="active">组件基础</router-link>
-                        <router-link to="/elementUIDemo" active-class="active">element ui demo</router-link>
-                        <router-link to="/animation" active-class="active">动画 </router-link>
-                        <router-link to="/subRouter" active-class="active">子菜单 </router-link>
-                    </li>
-                </ul>
-                <hr />
-            </el-header>
-            <el-main> <router-view></router-view></el-main>
-        </el-container>
-    </div>
+  <div id="app">
+    <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  </div>
 </template>
-<style lang="scss" scoped>
-@import "/asset/var.scss";
 
-ul li {
-  padding: 10px 0;
-  list-style: none;
-  a {
-    text-decoration: none;
-    padding: 10px ;
-    width:100px;
-    &:hover {
-        @include a-hover;
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import HelloWorld from './components/HelloWorld.vue';
 
-    }
-    &.active {
-     @include a-active;
-    }
-  }
-}
+@Component({
+  components: {
+    HelloWorld,
+  },
+})
+export default class App extends Vue {}
+</script>
 
-
-.page{
-    height: 100%;
-    .page-container{
-        height: 100%;
-    }
-
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
-
-<script>
-export default {
-    name: "app",
-    components: {},
-    beforeCreate() {},
-    created() {},
-    data() {
-        return {};
-    },
-    methods: {}
-};
-</script>
-<style></style>

@@ -34,7 +34,6 @@
       </template>
     </base-layout-slot>
 
-
     <el-divider></el-divider>
     <user-slot></user-slot>
     <div>父组件访问子组件的slot数据</div>
@@ -46,14 +45,21 @@
     <user-slot>
       <template v-slot:userInfo="slotProps">
         {{ slotProps.user.firstName }}
-      </template></user-slot
-    >
+      </template>
+    </user-slot>
     <div>下面写法跟上面一样，解构传值</div>
-        <user-slot>
+    <user-slot>
       <template v-slot:userInfo="{user}">
         {{ user.firstName }}
-      </template></user-slot
-    >
+      </template>
+    </user-slot>
+    <el-divider></el-divider>
+    <div>自定义button</div>
+    <ck-btn type="primary" :auto-loading="true" @click="confirm($event,'form')">确定</ck-btn>
+    <!-- <el-button type="primary"  @click="close('close')">close</el-button>
+    <el-button type="primary"  @click="cancel">cancel</el-button> -->
+    <ck-btn type="primary" :auto-loading="true" @click="confirm($event,'form')">确定</ck-btn>
+    <ck-btn type="primary" :auto-loading="true" @click="confirm($event,'form')">确定</ck-btn>
   </div>
 </template>
 
@@ -68,7 +74,10 @@
 // })
 import alerBoxSlot from "../component/alerBoxSlot";
 import baseLayoutSlot from "../component/baseLayoutSlot";
+import CkButton from '../component/basic/ck-button.vue';
 import userSlot from "../component/userSlot";
+
+// import ckButton from "../component/ck-button.vue";
 
 export default {
   name: "subRouter2",
@@ -77,7 +86,9 @@ export default {
   components: {
     alerBoxSlot,
     baseLayoutSlot,
-    userSlot,
+    userSlot
+
+
   },
   props: {
     title: String,
@@ -89,5 +100,22 @@ export default {
       msg: "base button",
     };
   },
+  methods: {
+    confirm(done,form) {
+      console.log('form',form);
+      console.log('done',done);
+      setTimeout(() => {
+        done();
+      }, 1000)
+    },
+    close(par,event){
+      console.log('par',par);
+      console.log('event',event);
+    },
+      cancel(event){
+
+      console.log('cancel evnet',event);
+    }
+  }
 };
 </script>
