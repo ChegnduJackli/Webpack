@@ -26,7 +26,7 @@
             <router-link
               :to="{ name: 'elementUIDemo.ckDialog' }"
               active-class="active"
-              >ckDialog</router-link
+              >ckDialog</router-link>
                 <li>
             <router-link
               :to="{ name: 'elementUIDemo.formValidate' }"

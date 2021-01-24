@@ -18,8 +18,8 @@ import subRouter2 from '../views/subRouter2.vue';
 import subRouter3_vuex from '../views/subRouter3-vuex.vue';
 import async from '../views/async.vue';
 
-import element_table_demo from  '../views/element-table-demo';
-import pageslide from  '../views/element-pageslide-demo';
+import element_table_demo from '../views/element-table-demo';
+import pageslide from '../views/element-pageslide-demo';
 
 import dynamicComponetDemo from '../views/dynamic-componet-demo.vue';
 
@@ -52,114 +52,114 @@ export default new Router({
         },
         {
             path: '/toDo',
-            name:'toDo',
-            component:ToDoList,
+            name: 'toDo',
+            component: ToDoList,
             meta: { keepAlive: true },
         },
         {
-            path:'/helloworld', //path必须要跟app.vue中的routerLink 完全一致
-            name:'helloworld2',
-            component:helloworld,
+            path: '/helloworld', //path必须要跟app.vue中的routerLink 完全一致
+            name: 'helloworld2',
+            component: helloworld,
             meta: { keepAlive: true },
         },
         {
-            path:'/elementUIDemo', //path必须要跟app.vue中的routerLink 完全一致
-            name:'elementUIDemo',
-            component:elementUIDemo,
+            path: '/elementUIDemo', //path必须要跟app.vue中的routerLink 完全一致
+            name: 'elementUIDemo',
+            component: elementUIDemo,
             meta: { keepAlive: true },
-            children:[
+            children: [
                 {
                     path: 'table',
-                    component:element_table_demo,
+                    component: element_table_demo,
                     name: 'elementUIDemo.table',
                     meta: { keepAlive: true },
                 },
                 {
                     path: 'pageSlide',
-                   // component: () => import('../views/element-pageslide-demo'),
-                   component:pageslide,
+                    // component: () => import('../views/element-pageslide-demo'),
+                    component: pageslide,
                     name: 'elementUIDemo.pageSlide',
                     meta: { keepAlive: true },
                 },
                 {
-                    path:'ckDialog',
+                    path: 'ckDialog',
                     name: 'elementUIDemo.ckDialog',
                     //component:async,
                     //// 这个动态导入会返回一个 `Promise` 对象。
-                     component: () => import('../views/element-ui-dialog'),
+                    component: () => import('../views/element-ui-dialog'),
                     meta: { keepAlive: true },
                 },
-            
-            ],
+                {
+
                     path: 'formValidate',
                     component: () => import('../views/form-validate'),
-                  // component:pageslide,
+                    // component:pageslide,
                     name: 'elementUIDemo.formValidate',
                     meta: { keepAlive: true },
                 },
-             
+
 
             ]
 
         },
         {
-            path:'/animation',
-            name:'animation',
-            component:animation,
+            path: '/animation',
+            name: 'animation',
+            component: animation,
             meta: { keepAlive: true },
         },
         {
-            path:'/subRouter',
-            name:'subRouter',
-            component:subRouter,
+            path: '/subRouter',
+            name: 'subRouter',
+            component: subRouter,
             meta: { keepAlive: true },
-            children:[
+            children: [
                 {
-                    path:'subRouter1',
-                    name:'subRouter1',
-                    component:subRouter1,
+                    path: 'subRouter1',
+                    name: 'subRouter1',
+                    component: subRouter1,
                     meta: { keepAlive: true },
                 },
                 {
-                    path:'subRouter2',
-                    name:'subRouter2',
-                    component:subRouter2,
+                    path: 'subRouter2',
+                    name: 'subRouter2',
+                    component: subRouter2,
                     meta: { keepAlive: true },
                 },
                 {
-                    path:'subRouter3_vuex',
-                    name:'subRouter3_vuex',
-                    component:subRouter3_vuex,
+                    path: 'subRouter3_vuex',
+                    name: 'subRouter3_vuex',
+                    component: subRouter3_vuex,
                     meta: { keepAlive: true },
                 },
                 {
-                    path:'dynamicComponetDemo',
-                    name:'dynamicComponetDemo',
-                    component:dynamicComponetDemo,
+                    path: 'dynamicComponetDemo',
+                    name: 'dynamicComponetDemo',
+                    component: dynamicComponetDemo,
                     meta: { keepAlive: true },
                 },
                 {
-                    path:'async',
-                    name:'async',
-                    component:async,
+                    path: 'async',
+                    name: 'async',
+                    component: async,
                     meta: { keepAlive: true },
                 },
-                
-                      {
-                    path:'slot',
-                    name:'slot',
+
+                {
+                    path: 'slot',
+                    name: 'slot',
                     //component:async,
                     //// 这个动态导入会返回一个 `Promise` 对象。
-                     component: () => import('../views/subRouterSlot'),
+                    component: () => import('../views/subRouterSlot'),
                     meta: { keepAlive: true },
                 },
-                         
-                      {
-                    path:'helloTs',
-                    name:'helloTs',
+
+                {
+                    path: 'helloTs',
+                    name: 'helloTs',
                     //component:async,
                     //// 这个动态导入会返回一个 `Promise` 对象。
-                     component: () => import('../views/helloTs'),
+                    component: () => import('../views/helloTs'),
                     meta: { keepAlive: true },
                 },
             ]
