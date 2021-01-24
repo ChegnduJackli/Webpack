@@ -91,6 +91,16 @@ export default new Router({
                 },
             
             ],
+                    path: 'formValidate',
+                    component: () => import('../views/form-validate'),
+                  // component:pageslide,
+                    name: 'elementUIDemo.formValidate',
+                    meta: { keepAlive: true },
+                },
+             
+
+            ]
+
         },
         {
             path:'/animation',
