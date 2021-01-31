@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ElementUI from 'element-ui'
+
 import 'element-ui/lib/theme-chalk/index.css'
 
 import Home from '../views/Home.vue';
@@ -24,7 +24,6 @@ import pageslide from '../views/element-pageslide-demo';
 import dynamicComponetDemo from '../views/dynamic-componet-demo.vue';
 
 Vue.use(Router);
-Vue.use(ElementUI)
 
 export default new Router({
     routes: [
@@ -97,7 +96,15 @@ export default new Router({
                     name: 'elementUIDemo.formValidate',
                     meta: { keepAlive: true },
                 },
+                {
 
+
+                    path: 'commonTest',
+                    component: () => import('../views/common-test'),
+                    // component:pageslide,
+                    name: 'elementUIDemo.commonTest',
+                    meta: { keepAlive: true },
+                },
 
             ]
 

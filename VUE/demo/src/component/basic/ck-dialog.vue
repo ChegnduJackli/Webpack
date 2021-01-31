@@ -1,28 +1,20 @@
 <template>
-  <el-dialog
-    title="提示2"
-    :center="false"
-    :append-to-body="false"
-    :close-on-click-modal="true"
-    :visible.sync="dialogVisible"
-    top="15vh"
-    :before-close="handleClose"
-    custom-class="dialog-custom"
-  >
-    <el-scrollbar wrap-style="overflow-x: hidden;" style="height: 100%">
+  <el-dialog title="提示2" :center="false" :append-to-body="false" :close-on-click-modal="true" :visible.sync="dialogShow" top="15vh" :before-close="handleClose" custom-class="dialog-custom">
+    <slot name="content"></slot>
+    <!-- <el-scrollbar wrap-style="overflow-x: hidden;" style="height: 100%">
       <slot name="content"></slot>
-    </el-scrollbar>
-     <slot name="footer">
- <!-- <span slot="footer" class="dialog-footer">
-      <el-button @click="OnClose">取 消</el-button>
-      <el-button type="primary" @click="OnClose">确 定</el-button>
-    </span> -->
+    </el-scrollbar> -->
 
-     </slot>
-  <!-- <span slot="footer" class="dialog-footer">
-      <el-button @click="OnClose">取 消</el-button>
-      <el-button type="primary" @click="OnClose">确 定</el-button>
-    </span> -->
+    <span slot="footer" class="dialog-footer">
+      <slot name="footer2" class="right">
+        <el-button @click="OnClose" v-if="showCancel">取 消2</el-button>
+        <el-button type="primary" @click="onConfirm" v-if="showConfirm">确 定</el-button>
+      </slot>
+    </span>
+
+    <!-- <el-button @click="OnClose">取 消2</el-button>
+      <el-button type="primary" @click="OnClose">确 定</el-button> -->
+
   </el-dialog>
 </template>
 
@@ -65,21 +57,40 @@
 //import { customer } from "@/data/custom";
 
 export default {
-      props: {
+  props: {
     dialogShow: {
       type: Boolean,
       default: false
-    }
     },
+    showCancel: {
+      type: Boolean,
+      default: true
+    },
+    showConfirm: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
-      dialogVisible: this.dialogShow,
+      // dialogVisible: this.dialogShow,
       //gridData: customer,
     };
   },
   methods: {
+    OnClose() {
+      console.log('default close');
+      this.$emit('update:dialogShow', false)
+    },
+    onConfirm() {
+      console.log('default confirm');
+      this.$emit('confirmEvent')
+
+      this.OnClose();
+    },
     handleClose(done) {
-      done();
+      this.$emit('update:dialogShow', false)
+      // done();
       // this.$confirm('确认关闭？')
       //   .then(_ => {
       //     done();

@@ -1,10 +1,8 @@
 <template>
   <div>
     <div>组件参数和事件传递</div>
-    <element-table
-      :data-source="tableData"
-      @deleteRow="deleteRow"
-    ></element-table>
+    <element-table :data-source="tableData" @deleteRow="deleteRow"></element-table>
+
   </div>
 </template>
 
@@ -34,7 +32,7 @@ export default {
   components: {
     "element-table": elementTable,
   },
-  data() {
+  data () {
     return {
       msg: "jack",
       isOpenMoal: false,
@@ -67,10 +65,10 @@ export default {
     };
   },
   methods: {
-    deleteRow(row) {
+    deleteRow (row) {
       var _this = this;
 
-      function sleep(interval) {
+      function sleep (interval) {
         return new Promise((resolve) => {
           setTimeout(resolve, interval);
         });
