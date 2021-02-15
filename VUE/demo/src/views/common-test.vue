@@ -70,6 +70,14 @@
         </el-checkbox-group>
       </div>
     </div>
+    <div class="box">
+      <div class="title">input number</div>
+      <div class="content">
+        <el-input-number v-model="num" :step="2"></el-input-number>
+        <el-input-number v-model="num" controls-position="right" @change="handleChange" :min="1"
+                         :max="10"></el-input-number>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -132,7 +140,7 @@ export default {
       checkList: ['选中且禁用', '复选框 A'],
       msg: "jack",
       isOpenMoal: false,
-
+      num: 0,
       cities: [{ id: 1, value: '上海' }, { id: 2, value: '北京' }, { id: 3, value: '广州' }],
       checkedCities: [],
       value: '',

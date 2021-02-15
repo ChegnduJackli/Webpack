@@ -1,14 +1,26 @@
 <template>
-  <el-dialog title="提示2" :center="false" :append-to-body="false" :close-on-click-modal="true" :visible.sync="dialogShow" top="15vh" :before-close="handleClose" custom-class="dialog-custom">
+  <el-dialog title="提示2"
+    :center="false"
+    :append-to-body="false"
+    :close-on-click-modal="true"
+    :visible.sync="dialogShow"
+    top="15vh"
+    :before-close="handleClose"
+    custom-class="dialog-custom">
     <slot name="content"></slot>
     <!-- <el-scrollbar wrap-style="overflow-x: hidden;" style="height: 100%">
       <slot name="content"></slot>
     </el-scrollbar> -->
 
-    <span slot="footer" class="dialog-footer">
-      <slot name="footer2" class="right">
-        <el-button @click="OnClose" v-if="showCancel">取 消2</el-button>
-        <el-button type="primary" @click="onConfirm" v-if="showConfirm">确 定</el-button>
+    <span slot="footer"
+      class="dialog-footer">
+      <slot name="footer2"
+        class="right">
+        <el-button @click="OnClose"
+          v-if="showCancel">取 消2</el-button>
+        <el-button type="primary"
+          @click="onConfirm"
+          v-if="showConfirm">确 定</el-button>
       </slot>
     </span>
 
@@ -69,26 +81,33 @@ export default {
     showConfirm: {
       type: Boolean,
       default: true
-    }
+    },
+    confirmEvent: {
+      type: Function
+    },
   },
-  data() {
+  data () {
     return {
       // dialogVisible: this.dialogShow,
       //gridData: customer,
     };
   },
   methods: {
-    OnClose() {
+    OnClose () {
       console.log('default close');
       this.$emit('update:dialogShow', false)
     },
-    onConfirm() {
-      console.log('default confirm');
-      this.$emit('confirmEvent')
+    onConfirm () {
+      this.confirmEvent().then((res) => {
+        console.log('res', res);
 
-      this.OnClose();
+      });
+      console.log('default confirm');
+      // this.$emit('confirmEvent')
+
+      // this.OnClose();
     },
-    handleClose(done) {
+    handleClose (done) {
       this.$emit('update:dialogShow', false)
       // done();
       // this.$confirm('确认关闭？')

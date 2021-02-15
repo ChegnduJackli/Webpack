@@ -1,23 +1,38 @@
 <template>
   <div>
-    <el-button type="text" @click="dialogVisible2 = true">点击打开 Dialog</el-button>
+    <el-button type="text"
+      @click="dialogVisible2 = true">点击打开 Dialog</el-button>
     <el-button @click="submit">提交</el-button>
 
-    <ck-dialog :dialogShow.sync="dialogVisible2" :showCancel="false" :showConfirm="true"
-               @cancelEvent="OnClose" @confirmEvent="onConfirm">
+    <ck-dialog :dialogShow.sync="dialogVisible2"
+      :showCancel="false"
+      :showConfirm="true"
+      @cancelEvent="OnClose"
+      :confirmEvent="onConfirm">
 
-      <div slot="content" style="height:100%">
-        <el-scrollbar wrap-style="overflow-x: hidden;" style="height: 100%">
-          <el-table :data="gridData" style="padding:8px">
-            <el-table-column property="date" label="日期" width="150"></el-table-column>
-            <el-table-column property="name" label="姓名" width="200"></el-table-column>
-            <el-table-column property="address" label="地址"></el-table-column>
+      <div slot="content"
+        style="height:100%">
+        <el-scrollbar wrap-style="overflow-x: hidden;"
+          style="height: 100%">
+          <el-table :data="gridData"
+            style="padding:8px">
+            <el-table-column property="date"
+              label="日期"
+              width="150"></el-table-column>
+            <el-table-column property="name"
+              label="姓名"
+              width="200"></el-table-column>
+            <el-table-column property="address"
+              label="地址"></el-table-column>
           </el-table>
 
           <div>
-            <el-select v-model="dto.value2" placeholder="请选择">
-              <el-option v-for="item in gridData" :key="item.id" :label="item.name"
-                         :value="item.id">
+            <el-select v-model="dto.value2"
+              placeholder="请选择">
+              <el-option v-for="item in gridData"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
               </el-option>
             </el-select>
           </div>
@@ -37,6 +52,8 @@
         <ck-btn @click="handleClose">cancel</ck-btn>
       </span>  -->
     </ck-dialog>
+    <div id="tree"
+      ref="tree"></div>
   </div>
 </template>
 
@@ -89,6 +106,10 @@
 <script>
 import { customer } from "../data/custom";
 
+import OrgChart from '@balkangraph/orgchart.js'
+
+//import OrgChart from '../utils/orgchart.js';
+
 export default {
   data () {
     return {
@@ -96,16 +117,41 @@ export default {
       gridData: customer,
       dto: {
         value2: ''
-      }
+      },
+      nodes: [
+        { id: 1, name: "Denny Curtis", title: "CEO", img: "https://cdn.balkan.app/shared/2.jpg" },
+        { id: 2, pid: 1, name: "Ashley Barnett", title: "Sales Manager", img: "https://cdn.balkan.app/shared/3.jpg" },
+        { id: 3, pid: 1, name: "Caden Ellison", title: "Dev Manager", img: "https://cdn.balkan.app/shared/4.jpg" },
+        { id: 4, pid: 2, name: "Elliot Patel", title: "Sales", img: "https://cdn.balkan.app/shared/5.jpg" },
+        { id: 5, pid: 2, name: "Lynn Hussain", title: "Sales", img: "https://cdn.balkan.app/shared/6.jpg" },
+        { id: 6, pid: 3, name: "Tanner May", title: "Developer", img: "https://cdn.balkan.app/shared/7.jpg" },
+        { id: 7, pid: 3, name: "Fran Parsons", title: "Developer", img: "https://cdn.balkan.app/shared/8.jpg" }
+      ]
 
     };
   },
   created () {
     this.init();
   },
+  mounted () {
+    //(this.$refs.tree, this.nodes)
+  }
+  ,
   methods: {
     submit () {
       this.$mb.success("cc");
+    },
+    oc: function (domEl, x) {
+
+      this.chart = new OrgChart(domEl, {
+        nodes: x,
+        nodeBinding: {
+          field_0: "name",
+          field_1: "title",
+          img_0: "img"
+        }
+      });
+
     },
     init () {
       var YesOrNo = {
@@ -114,6 +160,20 @@ export default {
 
       var t = this.$ck.objectToArray(YesOrNo);
       console.log("t", t);
+      // this.initTree();
+    },
+    initTree () {
+      console.log('OrgChart', OrgChart);
+      var chart = new OrgChart(document.getElementById("orgchart"), {
+        nodeBinding: {
+          field_0: "name"
+        },
+        nodes: [
+          { id: 1, name: "Amber McKenzie" },
+          { id: 2, pid: 1, name: "Ava Field" },
+          { id: 3, pid: 1, name: "Peter Stevens" }
+        ]
+      });
     },
     saveData (done, formName) {
       setTimeout(() => {
@@ -126,8 +186,16 @@ export default {
       this.dialogVisible2 = false;
     },
     onConfirm () {
-      console.log("outside confirm");
-      this.OnClose();
+      return new Promise((resolve, reject) => {
+        console.log("exec in promise");
+        setTimeout(() => {
+          console.log("parent timeout");
+        }, 2000);
+      }).finally(
+        resolve('parent finished')
+      );
+      // console.log("outside confirm");
+      // this.OnClose();
     },
     handleClose (done) {
       this.dialogVisible2 = false;
