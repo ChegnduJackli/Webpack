@@ -54,6 +54,23 @@
     </ck-dialog>
     <div id="tree"
       ref="tree"></div>
+
+    <span @click="test">test</span>
+
+    <div style="width: 100%;;border: 1px solid red;">
+      <span style="font-size: 20px;">父组件区域：</span>
+      <div>传给子组件对象的值【toChildrenObj】：{{toChildrenObj}}</div>
+      <div>传给子组件数组的值【toChildrenArray】：{{toChildrenArray}}</div>
+      <div>
+        <el-button @click="addToArray">添加数组</el-button>
+        <el-button @click="deleteArray">删除数组</el-button>
+      </div>
+      <div>
+        <children :toChildrenObj="toChildrenObj"
+          :toChildrenArray.sync="toChildrenArray"></children>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -109,8 +126,12 @@ import { customer } from "../data/custom";
 import OrgChart from '@balkangraph/orgchart.js'
 
 //import OrgChart from '../utils/orgchart.js';
+import children from "./toChildrenData.vue";
 
 export default {
+  components: {
+    "children": children,
+  },
   data () {
     return {
       dialogVisible2: false,
@@ -118,6 +139,15 @@ export default {
       dto: {
         value2: ''
       },
+      toChildrenObj: {
+        //  name: '李四',
+        // age: 22,
+        // isGood: 1,
+      },
+      toChildrenArray: [
+        // { id: 1, name: 'jack', 'age': 12 },
+        // { id: 2, name: 'rose', 'age': 12 }
+      ],
       nodes: [
         { id: 1, name: "Denny Curtis", title: "CEO", img: "https://cdn.balkan.app/shared/2.jpg" },
         { id: 2, pid: 1, name: "Ashley Barnett", title: "Sales Manager", img: "https://cdn.balkan.app/shared/3.jpg" },
@@ -138,6 +168,19 @@ export default {
   }
   ,
   methods: {
+    addToArray () {
+      let maxItem = this.$_.maxBy(this.toChildrenArray, 'id');
+      maxItem = maxItem || { id: 0 }
+      this.toChildrenArray.push({ id: maxItem.id + 1, name: 'xx', age: 20 });
+    },
+    deleteArray () {
+      this.toChildrenArray = this.$_.filter(this.toChildrenArray, function (num) {
+        return num.id !== 3;
+      })
+    },
+    test () {
+      alert('span trigger');
+    },
     submit () {
       this.$mb.success("cc");
     },

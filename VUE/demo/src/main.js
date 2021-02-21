@@ -32,7 +32,7 @@ import {
 
 
 //对象自动转换为数组
-function _objectToArray(myObject) {
+function _objectToArray (myObject) {
   var newArray = Object.values(myObject);
   var target = [];
   for (var i = 0, len = newArray.length; i < len; i++) {
@@ -44,7 +44,7 @@ function _objectToArray(myObject) {
 
 var ckService = {
   //对象自动转换为数组
-  objectToArray(myObject) {
+  objectToArray (myObject) {
     var newArray = Object.values(myObject);
     var target = [];
     for (var i = 0, len = newArray.length; i < len; i++) {
@@ -53,7 +53,7 @@ var ckService = {
     return target;
   },
 
-  translateArray(arr, fn, prefix = '') {
+  translateArray (arr, fn, prefix = '') {
     var arrCopy = _.cloneDeep(arr);
     arrCopy.forEach(s => {
       if (s.hasOwnProperty('name')) {
@@ -68,7 +68,7 @@ var ckService = {
 
 
 var msgBox = {
-  common(type, msg) {
+  common (type, msg) {
     ElementUI.Message({
       type: type,
       message: msg,
@@ -76,16 +76,16 @@ var msgBox = {
       duration: 5000,
     });
   },
-  success(msg) {
+  success (msg) {
     this.common('success', msg);
   },
-  error(msg) {
+  error (msg) {
     this.common('error', msg);
   },
-  info(msg) {
+  info (msg) {
     this.common('info', msg);
   },
-  warning(msg) {
+  warning (msg) {
     this.common('warning', msg);
   },
 };
@@ -93,6 +93,7 @@ var msgBox = {
 
 Vue.prototype.$mb = msgBox;
 Vue.prototype.$ck = ckService;
+Vue.prototype.$_ = _;
 
 // import upperFirst from 'lodash/upperFirst'
 // import camelCase from 'lodash/camelCase'

@@ -172,6 +172,12 @@ export default new Router({
             ]
         },
         {
+            path: '/apiTest',
+            name: 'apiTest',
+            component: () => import('../views/apiTest'),
+            meta: { keepAlive: true },
+        },
+        {
             path: '*',
             name: '404',
             component: NotFound,
