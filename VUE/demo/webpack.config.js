@@ -2,10 +2,10 @@ var path = require('path')
 var webpack = require('webpack')
 var WriteFilePlugin = require('write-file-webpack-plugin');
 module.exports = {
-   //入口 入口起点(entry point)指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。
-    //https://www.webpackjs.com/concepts/
+  //入口 入口起点(entry point)指示 webpack 应该使用哪个模块，来作为构建其内部依赖图的开始。进入入口起点后，webpack 会找出有哪些模块和库是入口起点（直接和间接）依赖的。
+  //https://www.webpackjs.com/concepts/
   entry: {
-    app: ["babel-polyfill", "./src/main.js"], 
+    app: ["babel-polyfill", "./src/main.js"],
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -15,6 +15,7 @@ module.exports = {
   plugins: [
     new WriteFilePlugin()
   ],
+
   // configureWebpack: {
   //   devtool: 'source-map'
   // },
@@ -26,7 +27,7 @@ module.exports = {
         use: [
           'vue-style-loader',
           'css-loader'
-         
+
         ],
       },
       {
@@ -99,12 +100,22 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    proxy: {
+      // detail: https://cli.vuejs.org/config/#devserver-proxy
+      '/api': {
+        target: `http://localhost:8085/api`,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   },
   performance: {
     hints: false
   },
- // devtool: '#eval-source-map'
+  // devtool: '#eval-source-map'
   devtool: 'source-map'
 }
 

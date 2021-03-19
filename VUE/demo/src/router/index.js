@@ -105,6 +105,30 @@ export default new Router({
                     name: 'elementUIDemo.commonTest',
                     meta: { keepAlive: true },
                 },
+                {
+
+                    path: 'elementMenu',
+                    component: () => import('../views/element-ui-menu'),
+                    // component:pageslide,
+                    name: 'elementUIDemo.elementMenu',
+                    meta: { keepAlive: true },
+                },
+                {
+
+                    path: 'parentChild',
+                    component: () => import('../views/parent-child-tongxin'),
+                    // component:pageslide,
+                    name: 'elementUIDemo.parentChild',
+                    meta: { keepAlive: true },
+                },
+                {
+
+                    path: 'uploadFileTemplate',
+                    component: () => import('../views/upload-file-template'),
+                    // component:pageslide,
+                    name: 'elementUIDemo.uploadFileTemplate',
+                    meta: { keepAlive: true },
+                },
 
             ]
 

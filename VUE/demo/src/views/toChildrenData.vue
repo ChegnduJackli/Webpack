@@ -1,39 +1,66 @@
 <template>
   <div class=""
-    style="width: 100%;margin: 30px ;border: 1px solid #0000ff">
+    style="margin: 30px ;border: 1px solid #0000ff">
     <span style="font-size: 20px;">子组件对象修改区域：</span>
     <div>父组件传过来的对象值【toChildrenObj】：{{myObj}}</div>
 
     <el-form ref="form"
       :model="myObj"
       label-width="80px">
-      <el-form-item label="活动名称">
-        <el-input v-model="myObj.name"></el-input>
-      </el-form-item>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="活动名称">
+            <el-input v-model="myObj.name"></el-input>
+          </el-form-item>
+          <el-form-item label="firstName">
+            <el-input v-model="myObj.firstName"></el-input>
+          </el-form-item>
+          <el-form-item label="lastName">
+            <el-input v-model="myObj.lastName"></el-input>
+          </el-form-item>
+          <el-form-item label="日期">
+            <el-date-picker v-model="myObj.birthDate"
+              format="yyyy-MM-dd">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
 
-      <el-form-item label="sex">
-        <el-input v-model="myObj.sex"></el-input>
-      </el-form-item>
-      <el-form-item label="isYes">
-        <el-select v-model="myObj.isGood"
-          @change="changedEvent">
-          <el-option v-for="item in yesNoArray"
-            :value="item.id"
-            :label="item.name"
-            :key="item.id">{{item.name }}
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="优先级">
-        <el-select v-model="myObj.priority"
-          @change="changedEvent">
-          <el-option v-for="item in priorityArray"
-            :value="item.id"
-            :label="item.name"
-            :key="item.id">{{item.name }}
-          </el-option>
-        </el-select>
-      </el-form-item>
+          <el-form-item label="sex">
+            <el-input v-model="myObj.sex"></el-input>
+          </el-form-item>
+          <el-form-item label="isYes">
+            <el-select v-model="myObj.isGood"
+              @change="changedEvent">
+              <el-option v-for="item in yesNoArray"
+                :value="item.id"
+                :label="item.name"
+                :key="item.id">{{item.name }}
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="优先级">
+            <el-select v-model="myObj.priority"
+              @change="changedEvent">
+              <el-option v-for="item in priorityArray"
+                :value="item.id"
+                :label="item.name"
+                :key="item.id">{{item.name }}
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="发生次数">
+            <el-select v-model="myObj.happenTimeValue"
+              @change="changedEvent">
+              <el-option v-for="item in happenTimeArray"
+                :value="item.id"
+                :label="item.name"
+                :key="item.id">{{item.name }}
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
 
     </el-form>
 
@@ -49,11 +76,19 @@
     </div>
   </div>
 </template>
+<style lang="scss" >
+.el-select,
+.el-date-editor,
+.el-input {
+  width: 100% !important;
+}
+</style>
+
 <script>
 export default {
 
   props: {
-    toChildrenObj: {
+    entityModel: {
       type: Object,
       default () {
         return {}
@@ -67,11 +102,14 @@ export default {
     }
   },
   data () {
+    //console.log('this.entityModel', this.entityModel);
     return {
       dataSource: this.toChildrenArray,
       yesNoArray: [],
       priorityArray: [],
-      myObj: this.toChildrenObj
+      myObj: this.entityModel,
+      happenTimeArray: [],
+
     }
   },
   created () {
@@ -86,6 +124,16 @@ export default {
       { id: 2, name: "中" },
       { id: 3, name: "低" },
     ];
+    this.happenTimeArray = [
+      { id: 1, name: "单次" },
+      { id: 2, name: "自定义" },
+      { id: 3, name: "按周" },
+      { id: 4, name: "按月" },
+      { id: 5, name: "按年" },
+    ];
+    //这种赋值不对，页面会卡，不能修改
+    //this.myObj.sex = 'xx';
+    // this.$set(this.myObj, 'sex', 'm')
   },
   watch: {
     toChildrenArray: {
@@ -99,15 +147,16 @@ export default {
       deep: true
     },
 
-    // toChildrenObj: {
-    //   handler (val) {
-    //     this.myObj = val || [];
-    //   },
+    entityModel: {
+      handler (val) {
+        console.log('child entityModel', val);
+        this.myObj = val;// this.$_.cloneDeep(val);赋值了就不会影响父级了
+      },
 
-    //   //最初绑定的时候也执行，默认是在修改后才会执行的
-    //   // immediate: true,
-    //   deep: true
-    // },
+      //最初绑定的时候也执行，默认是在修改后才会执行的
+      immediate: true,
+      deep: true
+    },
 
     // toChildrenArray (val) {
     //   if (val != null) {
@@ -125,10 +174,10 @@ export default {
     changedEvent (val) {
       console.log('changedEvent val', val);
 
-      // this.toChildrenObj.isGood = val;
+      // this.entityModel.isGood = val;
     },
     submit () {
-      console.log('this.toChildrenObj', this.myObj);
+      console.log('this.entityModel', this.myObj);
     },
     addToArray () {
       let maxItem = this.$_.maxBy(this.toChildrenArray, 'id');

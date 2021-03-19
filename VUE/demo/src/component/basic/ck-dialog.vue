@@ -2,7 +2,6 @@
   <el-dialog title="提示2"
     :center="false"
     :append-to-body="false"
-    :close-on-click-modal="true"
     :visible.sync="dialogShow"
     top="15vh"
     :before-close="handleClose"
@@ -11,7 +10,7 @@
     <!-- <el-scrollbar wrap-style="overflow-x: hidden;" style="height: 100%">
       <slot name="content"></slot>
     </el-scrollbar> -->
-
+    <!-- :close-on-click-modal="false" -->
     <span slot="footer"
       class="dialog-footer">
       <slot name="footer2"

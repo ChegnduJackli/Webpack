@@ -20,6 +20,10 @@ import {
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 
+ElementUI.Dialog.props.closeOnClickModal.default = false;
+//ElementUI.Dialog.props.appendToBody.default = true;
+console.log('ElementUI.Dialog', ElementUI.Dialog);
+
 
 Vue.use(ElementUI)
 
@@ -128,7 +132,7 @@ requireComponent.keys().forEach(fileName => {
         .replace(/\.\w+$/, '')
     )
   )
-  console.log('componentName', componentName);
+  //console.log('componentName', componentName);
 
   // 全局注册组件
   Vue.component(
@@ -153,6 +157,13 @@ Object.defineProperty(Vue.prototype, '$_', {
 
 Vue.use(animate);
 Vue.use(Vuex);
+
+
+ElementUI.Input.props.clearable = {
+  type: Boolean,
+  default: true
+};
+
 
 // const store = new Vuex.Store({
 //     state: {

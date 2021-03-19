@@ -9,27 +9,50 @@
             >
           </li> -->
           <li>
-            <router-link :to="{ name: 'elementUIDemo.table' }" active-class="active">table
+            <router-link :to="{ name: 'elementUIDemo.table' }"
+              active-class="active">table
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'elementUIDemo.pageSlide' }" active-class="active">pageSlide
+            <router-link :to="{ name: 'elementUIDemo.pageSlide' }"
+              active-class="active">pageSlide
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'elementUIDemo.ckDialog' }" active-class="active">ckDialog
+            <router-link :to="{ name: 'elementUIDemo.ckDialog' }"
+              active-class="active">Dialog
             </router-link>
           <li>
-            <router-link :to="{ name: 'elementUIDemo.formValidate' }" active-class="active">form
+            <router-link :to="{ name: 'elementUIDemo.formValidate' }"
+              active-class="active">form
               validate</router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'elementUIDemo.commonTest' }" active-class="active">
+            <router-link :to="{ name: 'elementUIDemo.commonTest' }"
+              active-class="active">
               常用组件</router-link>
           </li>
+          <li>
+            <router-link :to="{ name: 'elementUIDemo.elementMenu' }"
+              active-class="active">
+              element menu</router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'elementUIDemo.parentChild' }"
+              active-class="active">
+              父子组件通信</router-link>
+          </li>
+
+          <li>
+            <router-link :to="{ name: 'elementUIDemo.uploadFileTemplate' }"
+              active-class="active">
+              上传附件弹框</router-link>
+          </li>
+
         </ul>
       </el-col>
-      <el-col :span="18" class="right-content">
+      <el-col :span="18"
+        class="right-content">
         <router-view></router-view>
       </el-col>
     </el-row>

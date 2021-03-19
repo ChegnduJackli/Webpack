@@ -1,64 +1,5 @@
 <template>
   <div>
-    <el-button type="text"
-      @click="dialogVisible2 = true">点击打开 Dialog</el-button>
-    <el-button @click="submit">提交</el-button>
-
-    <div>搜索组件ck-search-box:<ck-search-box @refreshData="refreshDataEvent">
-      </ck-search-box>
-    </div>
-    <ck-dialog :dialogShow.sync="dialogVisible2"
-      :showCancel="false"
-      :showConfirm="true"
-      @cancelEvent="OnClose"
-      :confirmEvent="onConfirm">
-
-      <div slot="content"
-        style="height:100%">
-        <el-scrollbar wrap-style="overflow-x: hidden;"
-          style="height: 100%">
-          <el-table :data="gridData"
-            style="padding:8px">
-            <el-table-column property="date"
-              label="日期"
-              width="150"></el-table-column>
-            <el-table-column property="name"
-              label="姓名"
-              width="200"></el-table-column>
-            <el-table-column property="address"
-              label="地址"></el-table-column>
-          </el-table>
-
-          <div>
-            <el-select v-model="dto.value2"
-              placeholder="请选择">
-              <el-option v-for="item in gridData"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
-            </el-select>
-          </div>
-        </el-scrollbar>
-      </div>
-
-      <!-- <template v-slot:footer2>
-        <div>
-          <h1>Here might be a page title</h1>
-          <el-button @click="OnClose">取 消outside</el-button>
-          <el-button type="primary" @click="onConfirm">确 定</el-button>
-        </div>
-      </template> -->
-
-      <!-- <span slot="d-footer" class="dialog-footer">
-        <ck-btn type="primary" @click="saveData($event, 'orgForm')" :auto-loading="true">confirm</ck-btn>
-        <ck-btn @click="handleClose">cancel</ck-btn>
-      </span>  -->
-    </ck-dialog>
-    <div id="tree"
-      ref="tree"></div>
-
-    <span @click="test">test</span>
 
     <div style="width: 100%;;border: 1px solid red;">
       <span style="font-size: 20px;">父组件区域：</span>
@@ -67,10 +8,18 @@
       <div>
         <el-button @click="addToArray">添加数组</el-button>
         <el-button @click="deleteArray">删除数组</el-button>
+        <el-button @click="rollbakData">恢复</el-button>
       </div>
+      <el-form ref="form"
+        :model="toChildrenObj"
+        label-width="80px">
+        <el-form-item label="活动名称">
+          <el-input v-model="toChildrenObj.name"></el-input>
+        </el-form-item>
+      </el-form>
       <div>
-        <children :toChildrenObj="toChildrenObj"
-          :toChildrenArray.sync="toChildrenArray"></children>
+        <children :entityModel="toChildrenObj"
+          :toChildrenArray="toChildrenArray"></children>
       </div>
     </div>
 
@@ -131,6 +80,17 @@ import OrgChart from '@balkangraph/orgchart.js'
 //import OrgChart from '../utils/orgchart.js';
 import children from "./toChildrenData.vue";
 
+let defaultModel = function () {
+  return {
+    name: '李四',
+    age: 22,
+    isGood: 1,
+    sex: 'M',
+    priority: 2,
+  }
+
+};
+
 export default {
   components: {
     "children": children,
@@ -142,11 +102,7 @@ export default {
       dto: {
         value2: ''
       },
-      toChildrenObj: {
-        name: '李四',
-        age: 22,
-        isGood: 1,
-      },
+      toChildrenObj: {},
       toChildrenArray: [
         // { id: 1, name: 'jack', 'age': 12 },
         // { id: 2, name: 'rose', 'age': 12 }
@@ -163,8 +119,18 @@ export default {
 
     };
   },
+  watch: {
+    // toChildrenObj: {
+    //   handler (val) {
+    //     console.log('parent val', val)
+    //   },
+    //   immediate: true,
+    //   deep: true
+    // }
+  },
   created () {
     this.init();
+    console.log(' _this.toChildrenObj created', this.toChildrenObj);
     this.initPromise().then((res) => {
       console.log('res2', res);
     }).catch((e) => {
@@ -193,6 +159,9 @@ export default {
         return num.id !== 3;
       })
     },
+    rollbakData () {
+      this.toChildrenObj = this.$_.cloneDeep(defaultModel());
+    },
     test () {
 
       this.$confirm('用户信息过期，请重新登录', '提示', {
@@ -209,26 +178,31 @@ export default {
     submit () {
       this.$mb.success("cc");
     },
-    oc: function (domEl, x) {
 
-      this.chart = new OrgChart(domEl, {
-        nodes: x,
-        nodeBinding: {
-          field_0: "name",
-          field_1: "title",
-          img_0: "img"
-        }
-      });
-
-    },
     initPromise () {
+      let _this = this;
       return new Promise(function (resolve, reject) {
         console.log('start ');
         setTimeout(function () {
           // resolve(2);
           console.log('resolve');
-          //throw new Error('error2');
-          reject('xx')
+          let extObj = {
+            calendarDateValue: 1614848052353,
+            dateFromValue: 1614848052361,
+            dateToValue: 1614848052361,
+            // day: { dayCheckValue1: true, dayCheckValue2: false, intervalDayValue: 1 },
+            happenTimeValue: 1
+          };
+
+          _this.toChildrenObj = Object.assign({}, _this.toChildrenObj, defaultModel(), extObj);
+          //不是响应式
+          _this.toChildrenObj.firstName = 'firstname';
+          _this.$set(_this.toChildrenObj, 'lastName', 'lastName')
+          //下面这2句话both不会响应，页面不会生效，无法选中
+          //Object.assign(_this.toChildrenObj, defaultModel(), extObj);
+          //  _this.toChildrenObj = Object.assign(_this.toChildrenObj, defaultModel(), extObj);
+          console.log(' _this.toChildrenObj', _this.toChildrenObj);
+          //_this.toChildrenObj = defaultModel();
         }, 1000);
 
       }).catch((e) => {
@@ -249,19 +223,7 @@ export default {
       console.log("t", t);
       // this.initTree();
     },
-    initTree () {
-      console.log('OrgChart', OrgChart);
-      var chart = new OrgChart(document.getElementById("orgchart"), {
-        nodeBinding: {
-          field_0: "name"
-        },
-        nodes: [
-          { id: 1, name: "Amber McKenzie" },
-          { id: 2, pid: 1, name: "Ava Field" },
-          { id: 3, pid: 1, name: "Peter Stevens" }
-        ]
-      });
-    },
+
     saveData (done, formName) {
       setTimeout(() => {
         this.$message({ type: "info", message: "成功" }); done();
