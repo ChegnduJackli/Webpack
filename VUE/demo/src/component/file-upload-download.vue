@@ -6,7 +6,25 @@
     @open="beforeOpen"
     custom-class="dialog-ck gudong-dialog gudong-112"
     :append-to-body="true">
-    上传文件
+
+    <el-upload class="upload-demo"
+      drag
+      multiple
+      ref="upload"
+      action
+      :auto-upload="false"
+      :http-request="addAttachment">
+      <i class="el-icon-upload"></i>
+      <div class="el-upload__text">
+        <!-- {{ $t("common.dragFileToHere") }}，{{ $t("common.or") }}
+        <em>{{ $t("common.clickToUpload") }}</em> -->
+      </div>
+      <div class="el-upload__tip"
+        slot="tip">
+        只能上传excel,文件
+      </div>
+    </el-upload>
+
     <span slot="footer"
       class="dialog-footer">
 
@@ -33,9 +51,9 @@
 
 
 class Animal {
-  constructor(type) {
+  constructor() {
     // ...
-    this.type = type;
+
   }
 
   toString () {
@@ -45,15 +63,15 @@ class Animal {
 
   toValue () {
     // ...
-    //console.log('tovalue');
+    console.log('tovalue');
   }
 }
 
 class Dog extends Animal {
-  constructor(type) {
-    super(type);
+  constructor() {
+    super();
     // ...
-    this.type = type;
+
 
   }
 }
@@ -65,8 +83,8 @@ let AnimalClass = {
 
 
 class DynamicClass {
-  constructor(className, opts) {
-    return new AnimalClass[className](opts);
+  constructor(className) {
+    return new AnimalClass[className];
   }
 }
 
@@ -90,6 +108,12 @@ export default {
     return {
       msg: "base button",
       ModalTitle: '文件上传',
+      entityModal: {
+        orgID: null,
+      },
+
+      orgList: [{ name: '1', value: '1', id: '1' },
+      { name: '2', value: '2', id: '2' }],
 
     };
   },
@@ -97,11 +121,12 @@ export default {
 
   },
   methods: {
-    uploadFactory(){
-      
+    addAttachment () { },
+    uploadFactory () {
+
     },
     createInstance () {
-      var instance = new DynamicClass(this.className, 'animal');
+      var instance = new DynamicClass(this.className);
       instance.toString();
     },
     beforeOpen () {

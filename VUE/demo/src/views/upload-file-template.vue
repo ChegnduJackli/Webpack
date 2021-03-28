@@ -5,7 +5,7 @@
     <el-button @click="uploadProductFile">上传客户文件</el-button>
 
     <upload-file-modal :isShowModal.sync="isShowUploadFileModal"
-      :className="uploadFileType"></upload-file-modal>
+      :className="'Dog'"></upload-file-modal>
   </div>
 </template>
 
@@ -40,7 +40,7 @@ export default {
   },
   data () {
     return {
-      isShowUploadFileModal: false,
+      isShowUploadFileModal: true,
       uploadFileType: '',
     };
   },
@@ -68,7 +68,7 @@ export default {
     uploadCustomerFile () {
       this.uploadFileType = "Animal";
       this.openUploadFileModal();
-      //var p = new DynamicClass('Animal', 'animal');
+      // var p = new DynamicClass('Animal', 'animal');
       // p.toString();
     },
     uploadProductFile () {
