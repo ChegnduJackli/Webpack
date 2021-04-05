@@ -6,3 +6,10 @@ export function getUserList () {
         method: "get",
     });
 }
+
+export function mybatisPlusTest () {
+    return request({
+        url: `/user/testPlus`,
+        method: "get",
+    });
+}

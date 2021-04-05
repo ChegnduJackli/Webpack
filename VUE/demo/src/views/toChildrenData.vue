@@ -88,13 +88,14 @@
 export default {
 
   props: {
-    entityModel: {
+    myObj: {
       type: Object,
       default () {
         return {}
       }
     },
-    toChildrenArray: {
+    // toChildrenArray: {
+    dataSource: {
       type: Array,
       default () {
         return []
@@ -104,10 +105,10 @@ export default {
   data () {
     //console.log('this.entityModel', this.entityModel);
     return {
-      dataSource: this.toChildrenArray,
+      // dataSource: this.toChildrenArray,
       yesNoArray: [],
       priorityArray: [],
-      myObj: this.entityModel,
+      //  myObj: this.entityModel,
       happenTimeArray: [],
 
     }
@@ -136,10 +137,12 @@ export default {
     // this.$set(this.myObj, 'sex', 'm')
   },
   watch: {
-    toChildrenArray: {
+    //toChildrenArray: {
+    dataSource: {
       handler (val) {
-        this.dataSource = val || [];
-        console.log(this.dataSource === this.toChildrenArray);
+        //this.dataSource = val || [];
+        console.log('this child dataSource array', this.dataSource);
+        //console.log(this.dataSource === this.toChildrenArray);
       },
 
       //最初绑定的时候也执行，默认是在修改后才会执行的
@@ -147,22 +150,23 @@ export default {
       deep: true
     },
 
-    entityModel: {
-      handler (val) {
-        console.log('child entityModel', val);
-        this.myObj = val;// this.$_.cloneDeep(val);赋值了就不会影响父级了
-      },
+    //对象会双向赋值，不用watch也行
+    // myObj: {
+    //   handler (val) {
+    //     console.log('child entityModel', val);
+    //     this.myObj = val;// this.$_.cloneDeep(val);赋值了就不会影响父级了
+    //   },
 
-      //最初绑定的时候也执行，默认是在修改后才会执行的
-      immediate: true,
-      deep: true
-    },
+    //   //最初绑定的时候也执行，默认是在修改后才会执行的
+    //   immediate: true,
+    //   deep: true
+    // },
 
     // toChildrenArray (val) {
     //   if (val != null) {
-    //     debugger;
-    //     console.log('watch toChildrenArray', val);
-    //     this.dataSource = this.toChildrenArray || [];
+    //     //debugger;
+    //     console.log('watch child toChildrenArray', val);
+    //     //this.dataSource = this.toChildrenArray || [];
     //   }
 
     // },
@@ -188,7 +192,7 @@ export default {
       //   this.dataSource = this.$_.filter(this.dataSource, function (num) {
       //     return num.id !== item.id;
       //   })
-      this.dataSource.splice(this.toChildrenArray.indexOf(item), 1);
+      this.dataSource.splice(this.dataSource.indexOf(item), 1);
 
       //下面姿势不妥，改变了引用地址，所以不会异步更新父级
       //   this.dataSource = this.$_.filter(this.dataSource, function (num) {

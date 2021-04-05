@@ -18,8 +18,8 @@
         </el-form-item>
       </el-form>
       <div>
-        <children :entityModel="toChildrenObj"
-          :toChildrenArray="toChildrenArray"></children>
+        <children :myObj="toChildrenObj"
+          :dataSource="toChildrenArray"></children>
       </div>
     </div>
 
@@ -126,7 +126,15 @@ export default {
     //   },
     //   immediate: true,
     //   deep: true
-    // }
+    // },
+    toChildrenArray (val) {
+      if (val != null) {
+        //debugger;
+        console.log('watch parent toChildrenArray', val);
+        //this.dataSource = this.toChildrenArray || [];
+      }
+
+    },
   },
   created () {
     this.init();
@@ -153,11 +161,19 @@ export default {
       let maxItem = this.$_.maxBy(this.toChildrenArray, 'id');
       maxItem = maxItem || { id: 0 }
       this.toChildrenArray.push({ id: maxItem.id + 1, name: 'xx', age: 20 });
+      console.log('this.toChildrenArray', this.toChildrenArray);
+
     },
     deleteArray () {
-      this.toChildrenArray = this.$_.filter(this.toChildrenArray, function (num) {
-        return num.id !== 3;
-      })
+      // this.toChildrenArray.length = 0;
+      //下面三种都会生效
+      //this.toChildrenArray.splice(0, 1);
+      // this.toChildrenArray = [];
+      // this.toChildrenArray = this.$_.filter(this.toChildrenArray, function (num) {
+      //   return num.id === 3;
+      // });
+      this.toChildrenArray = [{ name: 'xx' }]
+      console.log('this.toChildrenArray', this.toChildrenArray);
     },
     rollbakData () {
       this.toChildrenObj = this.$_.cloneDeep(defaultModel());
@@ -195,7 +211,8 @@ export default {
           };
 
           _this.toChildrenObj = Object.assign({}, _this.toChildrenObj, defaultModel(), extObj);
-          //不是响应式
+          //firstName不是响应式
+          //last name是响应式
           _this.toChildrenObj.firstName = 'firstname';
           _this.$set(_this.toChildrenObj, 'lastName', 'lastName')
           //下面这2句话both不会响应，页面不会生效，无法选中
@@ -203,6 +220,7 @@ export default {
           //  _this.toChildrenObj = Object.assign(_this.toChildrenObj, defaultModel(), extObj);
           console.log(' _this.toChildrenObj', _this.toChildrenObj);
           //_this.toChildrenObj = defaultModel();
+          resolve(_this.toChildrenObj);
         }, 1000);
 
       }).catch((e) => {
@@ -219,8 +237,11 @@ export default {
         Yes: { id: 1, name: "common.yes" }, No: { id: 0, name: "Common.No" },
       };
 
+      let t2 = this.$_.map(YesOrNo, (item) => item);
+
       var t = this.$ck.objectToArray(YesOrNo);
       console.log("t", t);
+      console.log("t2", t2);
       // this.initTree();
     },
 

@@ -3,6 +3,7 @@
 
     <div class="box">
       <div class="title">api增删改查</div>
+      <el-button @click="mybatisPlus">mybatisPlus</el-button>
       <div slot="content"
         style="height:100%">
         <el-scrollbar wrap-style="overflow-x: hidden;"
@@ -76,7 +77,7 @@
 import { createLogger } from 'vuex';
 import elementTable from "../component/element-table.vue";
 
-import { getUserList } from "../utils/userLib";
+import { getUserList, mybatisPlusTest } from "../utils/userLib";
 
 export default {
   name: "element-table-demo",
@@ -93,7 +94,9 @@ export default {
     this.init();
   },
   methods: {
-
+    mybatisPlus () {
+      mybatisPlusTest();
+    },
     init () {
       getUserList().then((res) => {
         console.log(res);
