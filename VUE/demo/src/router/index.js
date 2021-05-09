@@ -96,6 +96,15 @@ export default new Router({
                     name: 'elementUIDemo.formValidate',
                     meta: { keepAlive: true },
                 },
+
+                {
+
+                    path: 'formValidateUpload',
+                    component: () => import('../views/form-validate-upload'),
+                    // component:pageslide,
+                    name: 'elementUIDemo.formValidateUpload',
+                    meta: { keepAlive: true },
+                },
                 {
 
 
@@ -127,6 +136,14 @@ export default new Router({
                     component: () => import('../views/upload-file-template'),
                     // component:pageslide,
                     name: 'elementUIDemo.uploadFileTemplate',
+                    meta: { keepAlive: true },
+                },
+                {
+
+                    path: 'searchCodeGenerate',
+                    component: () => import('../views/search-code-generate'),
+                    // component:pageslide,
+                    name: 'elementUIDemo.searchCodeGenerate',
                     meta: { keepAlive: true },
                 },
 

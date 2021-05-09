@@ -27,6 +27,13 @@
               active-class="active">form
               validate</router-link>
           </li>
+
+          <li>
+            <router-link :to="{ name: 'elementUIDemo.formValidateUpload' }"
+              active-class="active">
+              上传文件</router-link>
+          </li>
+
           <li>
             <router-link :to="{ name: 'elementUIDemo.commonTest' }"
               active-class="active">
@@ -47,6 +54,12 @@
             <router-link :to="{ name: 'elementUIDemo.uploadFileTemplate' }"
               active-class="active">
               上传附件弹框</router-link>
+          </li>
+
+          <li>
+            <router-link :to="{ name: 'elementUIDemo.searchCodeGenerate' }"
+              active-class="active">
+              查询代码生成器</router-link>
           </li>
 
         </ul>

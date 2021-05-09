@@ -12,6 +12,20 @@ import {
   setToken
 } from './utils/js-cookie-lib'
 
+import VueI18n from 'vue-i18n'
+import en from './language/en'
+import zh from './language/zh'
+
+Vue.use(VueI18n)
+
+const i18n = new VueI18n({
+  locale: 'zh', //(navigator.language || navigator.browserLanguage).toLowerCase(),
+  messages: {
+    'zh': zh,
+    'en': en
+  }
+});
+
 //常量作为函数名称
 import {
   SOME_MUTATION
@@ -134,6 +148,40 @@ requireComponent.keys().forEach(fileName => {
   )
   //console.log('componentName', componentName);
 
+  //只能输入数字及小数 包含小数点
+  Vue.directive('ckNumber', {
+    inserted: function (el) {
+      el.addEventListener("keypress", function (e) {
+        e = e || window.event;
+        let charcode = typeof e.charCode == 'number' ? e.charCode : e.keyCode;
+        let re = /\d/;
+        //原点
+        if (charcode == 46) {
+          if (e.target.value.includes('.')) {
+            e.preventDefault();
+          }
+          return;
+        }
+        //负数横线-
+        else if (charcode == 45) {
+          if (e.target.value.includes('-')) {
+            e.preventDefault();
+          }
+          return;
+        }
+
+        else if (!re.test(String.fromCharCode(charcode)) && charcode > 9 && !e.ctrlKey) {
+          if (e.preventDefault) {
+            e.preventDefault();
+          } else {
+            e.returnValue = false;
+          }
+        }
+      });
+    }
+  });
+
+
   // 全局注册组件
   Vue.component(
     componentName,
@@ -221,6 +269,7 @@ ElementUI.Input.props.clearable = {
 new Vue({
   el: '#app',
   router,
+  i18n,
   store,
   render: h => h(App)
 });

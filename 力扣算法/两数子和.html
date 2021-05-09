@@ -1,0 +1,54 @@
+<html>
+
+<script>
+    /*
+    1,创建一个map
+    2,循环遍历num数组
+    3，用target 减去nums[i]
+      a,以计算哪个数能跟当前的数字相加得到target
+    4,检查map有没有这个数
+      a,如果有返回结果
+      b,如果没有把num[i]当做key,i当做value放入Map (why) 
+         map.has(key),是要值，不是要index
+    
+    */
+
+    var twoSum = function (nums, target) {
+        const map = new Map();
+        for (i = 0; i < nums.length; i++) {
+            //9-2=7 ,map里的key没有7,继续循环
+            //9-7 =2 ,map里面的key有2，则取map.get(2) = 0,
+            const complement = target - nums[i];
+            if (map.has(complement)) {
+                return [map.get(complement), i]
+            }
+            else {
+                map.set(nums[i], i); //index为value 
+            }
+        }
+        return [];
+    }
+
+    let nums = [2, 7, 11, 15];
+    let target = 9;
+    let result = twoSum(nums, target);
+    console.log('result', result);
+    //map结果
+    //key: 2,value 0;
+    //key: 7,value:1
+
+</script>
+
+<body>
+    <img src="/img/两数之和.png" />
+    <p>
+        给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回他们的数组下标。你可以假设每种输入只会对应一个答案。但是，数组中同一个元素不能使用两遍。
+        示例:
+
+    <p>给定 nums = [2, 7, 11, 15], target = 9</p>
+    <p></p>因为 nums[0] + nums[1] = 2 + 7 = 9</p>
+    <p></p>所以返回 [0, 1]</p>
+    </p>
+</body>
+
+</html>

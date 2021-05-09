@@ -21,6 +21,7 @@ module.exports = {
   // },
   module: {
     rules: [
+
       {
         test: /\.css$/,  //test 属性，用于标识出应该被对应的 loader 进行转换的某个或某些文件。
         //use 属性，表示进行转换时，应该使用哪个 loader。
