@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        /* 方法四：中心扩展算法
+        https://blog.csdn.net/ZeromaXHe/article/details/89318273
+        复杂度分析
+
+        时间复杂度：O(n2)， 由于围绕中心来扩展回文会耗去 O(n)的时间，所以总的复杂度为 O(n2)。
+
+        空间复杂度：O(1)。
+
+        从中间向2侧扩散
+        ababa,  从中间的a开始，2边扩展bab,,  再扩散， ababa
+        有个问题，不是所有的字符串有中心点
+        如：cabbad =》abba
+        这儿中心为bb,i,i+1
+
+        */
+        var longestPalindrome = function (s) {
+            if (s.length < 2) { return s }
+
+            let start = 0; //最大字符串的起始位置
+            let maxLength = 1;
+
+            //左边，右边是否越界，左右2遍是否相等
+            //right-left+1,为什么+1,
+            //[a,b,a],index为0,1,2，  index: 2-0 =2 不是最大长度，需要加1，
+            function expandAroundCenter(left, right) {
+                while (left >= 0 && right < s.length && s[left] == s[right]) {
+                    if (right - left + 1 > maxLength) {
+                        maxLength = right - left + 1;
+                        start = left;
+                    }
+                    left--;
+                    right++;
+                }
+            }
+
+            for (let i = 0; i < s.length; i++) {
+                expandAroundCenter(i - 1, i + 1);
+                expandAroundCenter(i, i + 1);
+            }
+            return s.substring(start, start + maxLength);
+        };
+
+
+        let s1 = "ababa";
+        let result1 = longestPalindrome(s1);
+        console.log('result1', result1);
+        let s2 = "abccb";
+        let result2 = longestPalindrome(s2);
+        console.log('result2', result2);
+    </script>
+</head>
+
+<body>
+    正向和反向读都一样
+
+    输入: "babad"
+    输出: "bab"
+    注意: "aba" 也是一个有效答案。
+
+    示例 2：
+
+    输入: "cbbd"
+    输出: "bb"
+    <p></p>
+    <img src="img/回文字符串.png" />
+</body>
+
+</html>
