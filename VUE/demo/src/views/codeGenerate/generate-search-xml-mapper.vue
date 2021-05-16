@@ -22,7 +22,7 @@ import { formatter } from './formatter';
 let commotModule = `<!-- @@comment@@ --> `;
 
 let inputModule = `    
-            <if test="@@searchModal@@ != null and@@searchModal@@ != ''"> 
+            <if test="@@searchModal@@ != null and @@searchModal@@ != ''"> 
                 AND @@fieldName@@ like concat('%', concat(#{@@searchModal@@}, '%'))
             </if>
     `;
@@ -105,7 +105,7 @@ export default {
     //html 代码格式化 https://tool.ip138.com/html/
     generateSearchCode () {
       let parentCondition = 'condition.';
-      let tableAlias = 'i.';//如inputInvoice i
+      let tableAlias = 'a.';//如inputInvoice i
 
       let result = '';
       let dataModuleCopy = this.$_.cloneDeep(this.dataSource);

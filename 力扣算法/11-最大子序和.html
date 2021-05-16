@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最大子序和</title>
+    <script>
+
+        /* 动态规划 算法
+         [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+         1，加入[-2]
+         2，抉择[-2,1] or [1] 新开数组和旧数组 ，判断条件为 [-2,1]的和 与[1]比较，1>-1,所以新开数组 [1]
+        
+        */
+        let data = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
+
+        let maxSum = function (nums) {
+
+            let max = nums[0];
+            let memo = [];
+            memo[0] = nums[0];
+
+
+            for (let i = 1; i < nums.length; i++) {
+                memo[i] = Math.max(memo[i - 1] + nums[i], nums[i]);
+                max = Math.max(max, memo[i]);
+                // if (memo[i] > max) {
+                //     max = memo[i];
+                // }
+            }
+            console.log(memo);
+            return max;
+
+        }
+        let result = maxSum(data);
+        console.log('result', result)
+
+    </script>
+</head>
+
+<body>
+    <img src="img/最大子序和.png">
+
+</body>
+
+</html>

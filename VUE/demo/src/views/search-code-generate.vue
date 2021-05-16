@@ -18,12 +18,20 @@
 
 //配置数据源
 let dataModule = [
-  { type: 'input', title: 'invoice.column.sellerName', searchModal: 'sellerName', comment: '销方名称' },
-  { type: 'input', title: 'invoice.column.sellerTaxNumber', searchModal: 'sellerTaxNumber', comment: '销方税号' },
-  { type: 'select', title: 'invoice.column.invoiceEntityType', searchModal: 'invoiceEntityType', searchDataSource: 'invConstant.inputInvoiceEntityTypeArray' },
-  { type: 'number', title: 'invoice.column.amount', searchModal: 'amount', searchModalFrom: 'amountFrom', searchModalTo: 'amountTo' },
-  { type: 'date', title: 'invoice.column.period', searchModal: 'incomeDate', searchModalFrom: 'incomeDateFrom', searchModalTo: 'incomeDateTo' },
-  { type: 'dateTime', title: 'invoice.column.updateTime', searchModal: 'uploadDate', searchModalFrom: 'uploadDateFrom', searchModalTo: 'uploadDateTo' },
+  // { type: 'input', title: 'invoice.column.sellerName', searchModal: 'sellerName', comment: '公司代码' },
+  // { type: 'input', title: 'invoice.column.sellerTaxNumber', searchModal: 'sellerTaxNumber', comment: '代扣代缴项目' },
+  // { type: 'select', title: 'invoice.column.invoiceEntityType', searchModal: 'invoiceEntityType', searchDataSource: 'invConstant.inputInvoiceEntityTypeArray' },
+  // { type: 'number', title: 'invoice.column.amount', searchModal: 'amount', searchModalFrom: 'amountFrom', searchModalTo: 'amountTo' },
+  // { type: 'date', title: 'invoice.column.period', searchModal: 'incomeDate', searchModalFrom: 'incomeDateFrom', searchModalTo: 'incomeDateTo' },
+  // { type: 'dateTime', title: 'invoice.column.updateTime', searchModal: 'uploadDate', searchModalFrom: 'uploadDateFrom', searchModalTo: 'uploadDateTo' },
+
+  { type: 'input', title: 'invoice.input.whtItemName', searchModal: 'item', comment: '代扣代缴项目' },
+  { type: 'input', title: 'invoice.input.whtDocumentNumber', searchModal: 'documentNumber', comment: '代扣代缴凭证编号' },
+  { type: 'number', title: 'invoice.input.taxAmount', searchModal: 'taxAmount', searchModalFrom: 'taxAmountFrom', searchModalTo: 'taxAmountTo', comment: '税额' },
+  { type: 'dateTime', title: 'invoice.column.whtPaymentDate', searchModal: 'paymentDate', searchModalFrom: 'paymentDateFrom', searchModalTo: 'paymentDateTo', comment: '缴款日期' },
+  { type: 'date', title: 'invoice.column.period', searchModal: 'period', searchModalFrom: 'periodFrom', searchModalTo: 'periodTo' },
+  //{ type: 'dateTime', title: 'invoice.column.updateTime', searchModal: 'updateTimeRange', searchModalFrom: 'updateTimeFrom', searchModalTo: 'updateTimeTo' },
+
 ]
 
 import generateSearchDrawer from './codeGenerate/generate-search-drawer';

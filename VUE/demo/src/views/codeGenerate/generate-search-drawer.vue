@@ -71,6 +71,7 @@ let dateTimeModule = `
       <el-date-picker v-model="@@searchModal@@" id="@@fieldID@@"
         type="daterange"
         :editable="false"
+           format="yyyy-MM-dd"
         style="width: 100%;"
         :picker-options="{
                 onPick: ({minDate, maxDate}) => {
