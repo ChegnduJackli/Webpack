@@ -23,19 +23,67 @@ import pageslide from '../views/element-pageslide-demo';
 
 import dynamicComponetDemo from '../views/dynamic-componet-demo.vue';
 
+import { LoginCallback } from '@okta/okta-vue'
+import Protected from '../component/Protected'
+import login from '../views/login'
+import auth from '../utils/auth'
+//console.log('LoginCallback', LoginCallback);
+
+//import LoginCallback from '../component/LoginCallback'
 Vue.use(Router);
 
+
+function requireAuth (to, from, next) {
+    if (!auth.loggedIn()) {
+        next({
+            path: '/login',
+            query: { redirect: to.fullPath }
+        })
+    } else {
+        next()
+    }
+}
+
 export default new Router({
+    mode: 'history',
     routes: [
         {
             path: '/',
-            redirect: '/home'
+            redirect: '/home',
+
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: login
+        },
+        {
+            path: '/logout',
+            beforeEnter (to, from, next) {
+                console.log('before log out');
+                auth.logout()
+                next('/')
+            }
         },
         {
             path: '/home',
             name: 'home',
+            beforeEnter: requireAuth,
             component: Home,
             //meta: { keepAlive: true },
+        },
+        {
+            path: '/login/callback',
+            name: 'callback',
+            component: LoginCallback,
+
+        },
+        {
+            path: '/protected',
+            component: Protected,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/computedDemo',

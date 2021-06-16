@@ -22,6 +22,13 @@
               active-class="active">子菜单 </router-link>
             <router-link to="/apiTest"
               active-class="active">后台API </router-link>
+
+            <!-- v-if='authState.isAuthenticated' v-if='loggedIn' -->
+            <button v-on:click='logout'
+              id='logout-button'> Logout </button>
+            <button v-on:click='login'
+              id='login-button'> Login </button>
+
           </li>
         </ul>
         <hr />
@@ -29,6 +36,15 @@
       <el-main>
         <router-view></router-view>
       </el-main>
+
+      <footer class="info">
+        <p v-if="activeUser"
+          class="logout-link"><a @click="handleLogout"
+            href="#">Logout</a></p>
+        <p v-if="!activeUser"><a @click="login"
+            href="#">login</a></p>
+
+      </footer>
     </el-container>
   </div>
 </template>
@@ -58,15 +74,55 @@ ul li {
 </style>
 
 <script>
+
+import auth from './utils/auth'
+
 export default {
   name: "app",
   components: {},
   beforeCreate () { },
-  created () { },
-  data () {
-    return {};
+  async created () {
+    console.log('authState', this.authState)
+    console.log('$auth', this.$auth)
+    console.log('loggedIn', this.loggedIn)
+    await this.refreshActiveUser()
+
   },
-  methods: {}
+  data () {
+    return {
+      activeUser: null,
+      loggedIn: auth.loggedIn()
+    };
+  },
+  watch: {
+    '$route': 'refreshActiveUser'
+  },
+
+  methods: {
+    async refreshActiveUser () {
+      // this.activeUser = await this.$auth.getUser()
+      // this.$log.debug('activeUser', this.activeUser)
+    },
+
+    async handleLogout () {
+      await this.$auth.logout()
+      await this.refreshActiveUser()
+      this.$router.go('/')
+    },
+
+    async login () {
+      await this.$auth.signInWithRedirect()
+      // await auth.login();
+      // this.$router.go('/')
+    },
+    async logout () {
+      //this.$router.go('/logout')
+      await this.$auth.signOut()
+      //await auth.logout();
+      //this.activeUser = await this.$auth.getUser()
+      //this.$log.debug('activeUser', this.activeUser)
+    }
+  }
 };
 </script>
 <style></style>

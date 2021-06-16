@@ -13,6 +13,7 @@ service.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   console.log('before send request', config);
   config.headers['Accept'] = '*/*'
+
   // config.headers['Authorization'] = getToken()
   return config;
 }, function (error) {

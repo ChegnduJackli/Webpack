@@ -4,13 +4,16 @@
     <el-row :gutter="20">
       <el-col :span="3">用户名：</el-col>
       <el-col :span="12">
-        <el-input v-model="userName" placeholder="请输入用户名"></el-input>
+        <el-input v-model="userName"
+          placeholder="请输入用户名"></el-input>
       </el-col>
     </el-row>
     <el-row :gutter="20">
       <el-col :span="3">密码</el-col>
       <el-col :span="12">
-        <el-input v-model="password" placeholder="请输入密码" show-password></el-input>
+        <el-input v-model="password"
+          placeholder="请输入密码"
+          show-password></el-input>
       </el-col>
     </el-row>
     <el-row>
@@ -54,10 +57,10 @@ import _ from "lodash";
 import axios from "axios";
 import { mapMutations } from 'vuex'
 import { setToken } from '../utils/js-cookie-lib'
-
+import auth from '../utils/auth'
 export default {
   mixins: [DemoMixin],
-  data() {
+  data () {
     return {
       items: ["item1", "item2", "item3"],
       value: "",
@@ -67,8 +70,8 @@ export default {
       question: "",
       answer: "I cannot give you an answer until you ask a question!",
       direction: "left",
-      userName: 'jack',
-      password: '',
+      userName: 'jack.d.li@cn.pwc.com',
+      password: 'summer@123!',
     };
   },
   methods: {
@@ -76,7 +79,7 @@ export default {
       'changeLogin', // 将 `this.changeLogin()` 映射为 `this.$store.commit('changeLogin')`
 
     ]),
-    login() {
+    login () {
       let _this = this;
       if (this.userName == '' || this.password == '') {
         // alert('账号密码不能为空');
@@ -87,9 +90,18 @@ export default {
 
         return;
       }
-      var token = "Basic U0FQSk9CQVBJQUNDT1VOVDpTQVBKT0JBUElBQ0NPVU5U";
-      //setToken('Basic U0FQSk9CQVBJQUNDT1VOVDpTQVBKT0JBUElBQ0NPVU5U');
-      _this.changeLogin({ Authorization: token });
+
+      auth.login(this.userName, this.password, loggedIn => {
+        if (!loggedIn) {
+          this.error = true
+        } else {
+          this.$router.replace(this.$route.query.redirect || '/')
+        }
+      })
+
+      // var token = "Basic U0FQSk9CQVBJQUNDT1VOVDpTQVBKT0JBUElBQ0NPVU5U";
+      // //setToken('Basic U0FQSk9CQVBJQUNDT1VOVDpTQVBKT0JBUElBQ0NPVU5U');
+      // _this.changeLogin({ Authorization: token });
 
       this.$message({
         type: "success",
@@ -97,8 +109,8 @@ export default {
       });
     },
 
-    delete() { },
-    addItem(item) {
+    delete () { },
+    addItem (item) {
       this.items.push(item);
     },
     // reversedMessage: function() {
@@ -152,8 +164,8 @@ export default {
     console.log("组件钩子被调用");
     console.log("this data", this.$data);
   },
-  destroyed() { },
-  mounted() { },
+  destroyed () { },
+  mounted () { },
   directives: {
     focus: {
       bind: function () {

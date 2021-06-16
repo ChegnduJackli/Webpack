@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@balkangraph/orgchart.js": "^7.7.16",
+    "@okta/okta-vue": "^3.1.0",
+    "@okta/okta-auth-js": "^4.1.2",
     "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",

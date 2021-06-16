@@ -15,6 +15,29 @@ import {
 import VueI18n from 'vue-i18n'
 import en from './language/en'
 import zh from './language/zh'
+import { OktaAuth } from '@okta/okta-auth-js'
+import OktaVue from '@okta/okta-vue'
+import { navigationGuard } from '@okta/okta-vue'
+
+
+//import okavue2 from './component/okta-vue';
+
+const oktaAuth = new OktaAuth({
+  issuer: 'https://dev-17635463.okta.com/oauth2/default',
+  clientId: '0oa10v2ekdkvQrHQW5d7',
+
+  //redirectUri: window.location.origin + '/login/callback',
+  //sso登录后callback
+  redirectUri: 'https://localhost:8081/login/callback',
+  scopes: ['openid', 'profile', 'email']
+})
+
+Vue.use(OktaVue, { oktaAuth })
+
+//Vue.use(okavue2, { oktaAuth });
+
+router.beforeEach(navigationGuard)
+
 
 Vue.use(VueI18n)
 
@@ -36,7 +59,7 @@ import camelCase from 'lodash/camelCase'
 
 ElementUI.Dialog.props.closeOnClickModal.default = false;
 //ElementUI.Dialog.props.appendToBody.default = true;
-console.log('ElementUI.Dialog', ElementUI.Dialog);
+//console.log('ElementUI.Dialog', ElementUI.Dialog);
 
 
 Vue.use(ElementUI)

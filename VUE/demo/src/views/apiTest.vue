@@ -98,6 +98,7 @@ export default {
       mybatisPlusTest();
     },
     init () {
+      console.log('this.$auth.getAccessToken()', this.$auth.getAccessToken());
       getUserList().then((res) => {
         console.log(res);
         this.tableData = res.data;
