@@ -100,8 +100,8 @@ export default {
 
   methods: {
     async refreshActiveUser () {
-      // this.activeUser = await this.$auth.getUser()
-      // this.$log.debug('activeUser', this.activeUser)
+      this.activeUser = await this.$auth.getUser()
+      this.$log.debug('activeUser', this.activeUser)
     },
 
     async handleLogout () {

@@ -44,8 +44,7 @@ export default {
   render () { },
 
   created () {
-    alert('xx');
-    console.log('created login callback');
+
   }
 }
 </script>
