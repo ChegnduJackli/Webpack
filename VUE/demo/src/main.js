@@ -22,17 +22,17 @@ import { navigationGuard } from '@okta/okta-vue'
 
 //import okavue2 from './component/okta-vue';
 
-const oktaAuth = new OktaAuth({
-  issuer: 'https://dev-17635463.okta.com/oauth2/default',
-  clientId: '0oa10v2ekdkvQrHQW5d7',
+// const oktaAuth = new OktaAuth({
+//   issuer: 'https://dev-17635463.okta.com/oauth2/default',
+//   clientId: '0oa10v2ekdkvQrHQW5d7',
 
-  //redirectUri: window.location.origin + '/login/callback',
-  //sso登录后callback
-  redirectUri: 'https://localhost:8081/login/callback',
-  scopes: ['openid', 'profile', 'email']
-})
+//   //redirectUri: window.location.origin + '/login/callback',
+//   //sso登录后callback
+//   redirectUri: 'https://localhost:8081/login/callback',
+//   scopes: ['openid', 'profile', 'email']
+// })
 
-Vue.use(OktaVue, { oktaAuth })
+// Vue.use(OktaVue, { oktaAuth })
 
 //Vue.use(okavue2, { oktaAuth });
 

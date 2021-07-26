@@ -24,10 +24,12 @@
               active-class="active">后台API </router-link>
 
             <!-- v-if='authState.isAuthenticated' v-if='loggedIn' -->
-            <button v-on:click='logout'
+            <!-- <button v-if='authState.isAuthenticated'
+              v-on:click='logout'
               id='logout-button'> Logout </button>
-            <button v-on:click='login'
-              id='login-button'> Login </button>
+            <button v-else
+              v-on:click='login'
+              id='login-button'> Login </button> -->
 
           </li>
         </ul>
@@ -82,26 +84,26 @@ export default {
   components: {},
   beforeCreate () { },
   async created () {
-    console.log('authState', this.authState)
-    console.log('$auth', this.$auth)
-    console.log('loggedIn', this.loggedIn)
-    await this.refreshActiveUser()
+    // console.log('authState', this.authState)
+    // console.log('$auth', this.$auth)
+    // console.log('loggedIn', this.loggedIn)
+    //await this.refreshActiveUser()
 
   },
   data () {
     return {
       activeUser: null,
-      loggedIn: auth.loggedIn()
+      loggedIn: null, //auth.loggedIn()
     };
   },
-  watch: {
-    '$route': 'refreshActiveUser'
-  },
+  // watch: {
+  //   '$route': 'refreshActiveUser'
+  // },
 
   methods: {
     async refreshActiveUser () {
       this.activeUser = await this.$auth.getUser()
-      this.$log.debug('activeUser', this.activeUser)
+
     },
 
     async handleLogout () {

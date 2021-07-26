@@ -7,6 +7,7 @@
     <div>搜索组件ck-search-box:<ck-search-box @refreshData="refreshDataEvent">
       </ck-search-box>
     </div>
+
     <ck-dialog :dialogShow.sync="dialogVisible2"
       :showCancel="false"
       :showConfirm="true"
@@ -57,22 +58,6 @@
     </ck-dialog>
     <div id="tree"
       ref="tree"></div>
-
-    <span @click="test">test</span>
-
-    <div style="width: 100%;;border: 1px solid red;">
-      <span style="font-size: 20px;">父组件区域：</span>
-      <div>传给子组件对象的值【toChildrenObj】：{{toChildrenObj}}</div>
-      <div>传给子组件数组的值【toChildrenArray】：{{toChildrenArray}}</div>
-      <div>
-        <el-button @click="addToArray">添加数组</el-button>
-        <el-button @click="deleteArray">删除数组</el-button>
-      </div>
-      <div>
-        <children :toChildrenObj="toChildrenObj"
-          :toChildrenArray.sync="toChildrenArray"></children>
-      </div>
-    </div>
 
   </div>
 </template>
@@ -273,16 +258,16 @@ export default {
       this.dialogVisible2 = false;
     },
     onConfirm () {
-      return new Promise((resolve, reject) => {
-        console.log("exec in promise");
-        setTimeout(() => {
-          console.log("parent timeout");
-        }, 2000);
-      }).finally(
-        resolve('parent finished')
-      );
+      // return new Promise((resolve, reject) => {
+      //   console.log("exec in promise");
+      //   setTimeout(() => {
+      //     console.log("parent timeout");
+      //   }, 2000);
+      // }).finally(
+      //   resolve('parent finished')
+      // );
       // console.log("outside confirm");
-      // this.OnClose();
+      this.OnClose();
     },
     handleClose (done) {
       this.dialogVisible2 = false;

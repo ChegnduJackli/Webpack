@@ -23,13 +23,13 @@ import pageslide from '../views/element-pageslide-demo';
 
 import dynamicComponetDemo from '../views/dynamic-componet-demo.vue';
 
-import { LoginCallback } from '@okta/okta-vue'
+//import { LoginCallback } from '@okta/okta-vue'
 import Protected from '../component/Protected'
 import login from '../views/login'
 import auth from '../utils/auth'
 //console.log('LoginCallback', LoginCallback);
 
-//import LoginCallback from '../component/LoginCallback'
+import LoginCallback from '../component/LoginCallback'
 Vue.use(Router);
 
 

@@ -99,7 +99,8 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
-    https: true,
+    //https: true,
+    port: 8081,
     historyApiFallback: true,
     noInfo: true,
     overlay: true,

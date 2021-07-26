@@ -192,12 +192,13 @@ export default {
       //   this.dataSource = this.$_.filter(this.dataSource, function (num) {
       //     return num.id !== item.id;
       //   })
+
       this.dataSource.splice(this.dataSource.indexOf(item), 1);
 
       //下面姿势不妥，改变了引用地址，所以不会异步更新父级
-      //   this.dataSource = this.$_.filter(this.dataSource, function (num) {
-      //     return num.id !== item.id;
-      //   })
+      // this.dataSource = this.$_.filter(this.dataSource, function (num) {
+      //   return num.id !== item.id;
+      // })
 
       //   this.$$emit('update:toChildrenArray', this.toChildrenArray)
 

@@ -4,8 +4,26 @@
     <el-button @click="uploadCustomerFile">上传商品文件</el-button>
     <el-button @click="uploadProductFile">上传客户文件</el-button>
 
+    <el-button @click="selectOrg">selectOrg</el-button>
+
+    {{search.orgIds}}
     <upload-file-modal :isShowModal.sync="isShowUploadFileModal"
       :className="'Dog'"></upload-file-modal>
+
+    <!-- :value.sync="search.orgIds" -->
+
+    <ck-select-all :value.sync="search.orgIds"
+      @change="changeEvent"
+      filterable
+      multiple
+      collapse-tags
+      ky="id"
+      placeHolder="xxxx"
+      label="name"
+      style="width: 100%"
+      :options="orgArray">
+    </ck-select-all>
+
   </div>
 </template>
 
@@ -42,6 +60,16 @@ export default {
     return {
       isShowUploadFileModal: false,
       uploadFileType: '',
+      search: {
+        orgIds: [],
+      },
+      orgArray: [
+        { id: 1, name: '1' },
+        { id: 2, name: '2' },
+        { id: 3, name: '3' },
+        { id: 4, name: '4' },
+        { id: 5, name: '5' },
+      ]
     };
   },
   watch: {
@@ -62,6 +90,12 @@ export default {
   }
   ,
   methods: {
+    changeEvent (val) {
+      console.log('out changeEvent', val);
+    },
+    selectOrg () {
+      this.search.orgIds = [3, 4, 5]
+    },
     openUploadFileModal () {
       this.isShowUploadFileModal = true;
     },

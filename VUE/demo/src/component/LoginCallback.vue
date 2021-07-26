@@ -16,11 +16,14 @@
 </template>
 
 <script>
+
+import { mapMutations } from 'vuex'
 export default {
   name: 'LoginCallback',
   data () {
     return {
-      error: ''
+      error: '',
+      authState2: this.$auth.getAccessToken(),
     };
   },
   async beforeMount () {
@@ -43,8 +46,31 @@ export default {
   },
   render () { },
 
-  created () {
+  async created () {
+    // console.log('loginCallback created');
+    //this.$nextTick(() => {
+    // setTimeout(() => {
+    //   console.log('this.authState xxxx', this.authState);
+    //   let accessToken = this.authState.accessToken.accessToken;
+    //   console.log('auth', this.$auth);
+    //   let token = "Bearer " + accessToken;
+    //   this.callAPi(token);
+    // }, 500);
 
-  }
+
+    //this.changeLogin({ Authorization: token });
+  },
+  methods: {
+    // ...mapMutations([
+    //   'changeLogin', // 将 `this.changeLogin()` 映射为 `this.$store.commit('changeLogin')`
+
+    // ]),
+
+    // callAPi (token) {
+
+    //   console.log('callAPi token', token);
+    // }
+
+  },
 }
 </script>
