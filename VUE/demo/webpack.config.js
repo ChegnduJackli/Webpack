@@ -100,7 +100,7 @@ module.exports = {
   },
   devServer: {
     //https: true,
-    port: 8081,
+    port: 8082,
     historyApiFallback: true,
     noInfo: true,
     overlay: true,

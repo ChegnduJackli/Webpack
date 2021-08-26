@@ -21,6 +21,18 @@
         <children :myObj="toChildrenObj"
           :dataSource="toChildrenArray"></children>
       </div>
+
+      <div>
+        xx
+        <Quarter @change="changeQStart($event)"
+          :choseQuarterVal="periodStartQuarter">
+        </Quarter>
+        <span id="vccqcq-s44">-</span>
+        <Quarter @change="changeQEnd($event)"
+          :choseQuarterVal="periodEndQuarter">
+        </Quarter>
+
+      </div>
     </div>
 
   </div>
@@ -80,6 +92,10 @@ import OrgChart from '@balkangraph/orgchart.js'
 //import OrgChart from '../utils/orgchart.js';
 import children from "./toChildrenData.vue";
 
+
+import Quarter from "../component/Quarter";
+
+
 let defaultModel = function () {
   return {
     name: '李四',
@@ -94,6 +110,7 @@ let defaultModel = function () {
 export default {
   components: {
     "children": children,
+    Quarter
   },
   data () {
     return {
@@ -102,6 +119,8 @@ export default {
       dto: {
         value2: ''
       },
+      periodStartQuarter: '',
+      periodEndQuarter: '',
       toChildrenObj: {},
       toChildrenArray: [
         // { id: 1, name: 'jack', 'age': 12 },
@@ -115,7 +134,8 @@ export default {
         { id: 5, pid: 2, name: "Lynn Hussain", title: "Sales", img: "https://cdn.balkan.app/shared/6.jpg" },
         { id: 6, pid: 3, name: "Tanner May", title: "Developer", img: "https://cdn.balkan.app/shared/7.jpg" },
         { id: 7, pid: 3, name: "Fran Parsons", title: "Developer", img: "https://cdn.balkan.app/shared/8.jpg" }
-      ]
+      ],
+      globalQ: 5,
 
     };
   },
@@ -151,9 +171,35 @@ export default {
   },
   mounted () {
     //(this.$refs.tree, this.nodes)
+
+    this.$nextTick(() => {
+      this.refreshChart3();
+    })
+
   }
   ,
   methods: {
+    changeQStart (val) {
+      this.periodStartQuarter = val.data;
+      this.refreshChart3();
+    },
+    refreshChart3 () {
+      let quarters = this.globalQ;
+      this.globalQ++;
+      if (quarters > 4) {
+        // debugger
+        this.$mb.warning("选择区间超过4个季度,请重新选择")
+        this.periodStartQuarter = "2020-Q" + quarters + 1;
+        this.periodEndQuarter = "2020-Q" + quarters + 2;
+        return;
+      }
+    },
+
+    changeQEnd (val) {
+      this.periodEndQuarter = val.data;
+      this.refreshChart3();
+    },
+
     refreshDataEvent (searchText) {
       console.log('refreshDataEvent called', searchText);
     },
