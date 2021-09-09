@@ -1,10 +1,11 @@
 import axios from "axios";
 import { getToken } from '../utils/js-cookie-lib'
+import { secure } from '../utils/secure'
 
 const service = axios.create({
   //baseURL: 'http://localhost:60021/api/',
-  baseURL: 'http://localhost:8085/api/',
-  timeout: 100000,
+  baseURL: 'http://localhost:8180/',
+  timeout: 10000000,
   headers: { 'X-Custom-Header': 'foobar' }
 });
 
@@ -13,6 +14,10 @@ service.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   console.log('before send request', config);
   config.headers['Accept'] = '*/*'
+
+  const signature = secure.signature(config);
+
+  config.headers['signature'] = signature;
 
   // config.headers['Authorization'] = getToken()
   return config;

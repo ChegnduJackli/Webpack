@@ -3,6 +3,7 @@
     <el-button type="text"
       @click="dialogVisible2 = true">点击打开 Dialog</el-button>
     <el-button @click="submit">提交</el-button>
+    <el-button @click="signature">签名</el-button>
 
     <div>搜索组件ck-search-box:<ck-search-box @refreshData="refreshDataEvent">
       </ck-search-box>
@@ -112,7 +113,8 @@
 import { customer } from "../data/custom";
 
 import OrgChart from '@balkangraph/orgchart.js'
-
+import md5 from 'js-md5';
+import CryptoJS from 'crypto-js';
 //import OrgChart from '../utils/orgchart.js';
 import children from "./toChildrenData.vue";
 
@@ -277,6 +279,52 @@ export default {
       //     done();
       //   })
       //   .catch(_ => { });
+    },
+
+    newGuid () {
+      function s4 () {
+        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+      };
+      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    },
+    signature () {
+      let config = {
+        url: "api/v2/outputMotor/sendSapOrder",
+        method: 'post',
+        data: {
+          'amount': 100,
+          'buyerName': 'jack',
+          'taxRate': 0.13
+        }
+      };
+      let signature = '';
+      let signToStr = '';
+      debugger;
+      try {
+        let param = '';
+        param = config.url.split('?')[1];
+        param = !!param ? param : '';
+        if (config.method.toLowerCase() != 'get') {
+          let jsonStr = JSON.stringify(!!config.data ? config.data : {});
+          console.log('jsonStr', jsonStr);
+          param = param + md5(jsonStr);
+        }
+        param = config.method.toLowerCase() + '/' + param;
+        const uuid = this.newGuid();
+        const key = 'apex-fontent';
+        const token = 'apex-backend';
+        const timeSpan = Date.parse(new Date());
+
+        signToStr = `param=${param}&uuid=${uuid}&timeSpan=${timeSpan}&key=${key}`;
+
+        console.log('signToStr', signToStr);
+        signature = `sign=${CryptoJS.HmacSHA256(signToStr, token).toString()}&uuid=${uuid}&timeSpan=${timeSpan}&key=${key}`;
+
+      } catch (e) {
+        console.log(e);
+      }
+      console.log('signature', signature);
+      return signature;
     },
   },
 };

@@ -7,7 +7,11 @@
     <generate-dx-column :dataSource="dataSource">生成dx column语句 </generate-dx-column>
     <br>
     <generate-search-plus :dataSource="dataSource">生成mybaits plus语句 </generate-search-plus>
+
+    <br>
+    <generate-export-dto :dataSource="dataSource">生成Excel导出类 dto语句 </generate-export-dto>
   </div>
+
 </template>
 
 
@@ -19,7 +23,10 @@
 </style>
 
 <script>
+import { outputInvoiceMotor } from "../data/output-invoice-motor";
 
+let dataModule1 = outputInvoiceMotor;
+console.log('dataModule1', dataModule1);
 //配置数据源
 let dataModule = [
   // { type: 'input', title: 'invoice.column.sellerName', searchModal: 'sellerName', comment: '公司代码' },
@@ -33,7 +40,7 @@ let dataModule = [
   { type: 'input', title: 'invoice.output.invoiceNumber', searchModal: 'invoiceNumber', comment: '发票号码' },
 
   { type: 'input', title: 'invoice.output.identityId', searchModal: 'identityId', comment: '身份证号码' },
-  { type: 'input', title: 'invoice.output.status', searchModal: 'status', comment: '发票状态' },
+  { type: 'select', title: 'invoice.output.status', searchModal: 'status', comment: '发票状态', searchDataSource: 'searchPanel.options.invoiceStatusArray' },
   { type: 'input', title: 'invoice.output.invoiceType', searchModal: 'invoiceType', comment: '发票类型' },
   { type: 'dateTime', title: 'invoice.column.invoiceDate', searchModal: 'invoiceDate', searchModalFrom: 'invoiceDateFrom', searchModalTo: 'invoiceDateTo', comment: '开票日期' },
 
@@ -86,7 +93,7 @@ import generateSearchDrawer from './codeGenerate/generate-search-drawer';
 import generateSearchXmlMapper from './codeGenerate/generate-search-xml-mapper';
 import generateDxColumn from './codeGenerate/generate-dxcolumn';
 import generateSearchPlus from './codeGenerate/generate-search-plus';
-
+import generateExportDto from './codeGenerate/generate-export-dto';
 export default {
   name: "subRouter1",
   //props: ['title'],
@@ -107,7 +114,8 @@ export default {
     generateSearchDrawer,
     generateSearchXmlMapper,
     generateDxColumn,
-    generateSearchPlus
+    generateSearchPlus,
+    generateExportDto
   },
   methods: {
 

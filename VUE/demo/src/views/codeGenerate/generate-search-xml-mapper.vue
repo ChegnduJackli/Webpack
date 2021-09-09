@@ -19,7 +19,7 @@
 import { formatter } from './formatter';
 
 
-let commotModule = `<!-- @@comment@@ --> `;
+let commentModule = `<!-- @@comment@@ --> `;
 
 let inputModule = `    
             <if test="@@searchModal@@ != null and @@searchModal@@ != ''"> 
@@ -121,6 +121,11 @@ export default {
 
         let currentItem = queryDrawerMap[item.type];
         template = formatter.parseExpr(currentItem, item);
+
+        if (item.comment) {
+          template = formatter.parseExpr(commentModule, item.comment) + template + "\r\n";
+        }
+
 
         result += template;
 

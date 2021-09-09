@@ -189,7 +189,7 @@ export default new Router({
                 {
 
                     path: 'searchCodeGenerate',
-                    component: () => import('../views/search-code-generate'),
+                    component: () => import('../views/source-code-generate'),
                     // component:pageslide,
                     name: 'elementUIDemo.searchCodeGenerate',
                     meta: { keepAlive: true },

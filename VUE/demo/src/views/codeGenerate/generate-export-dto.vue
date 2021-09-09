@@ -2,7 +2,7 @@
   <div class="">
     <el-button @click="generateSearchCode"
       type="primary">
-      <slot>生成Dx Column</slot>
+      <slot>生成导出dto</slot>
     </el-button>
     <div style="width:1000px;height:100%;overflow:auto">
       <code>{{codeResult}}</code>
@@ -19,63 +19,29 @@
 import { formatter } from './formatter';
 
 
-let commentModule = `<!-- @@comment@@ --> `;
-let inputModule = `
-      <DxColumn  id="@@fieldID@@"
-          data-field="@@searchModal@@"
-          data-type="string"
-          :caption="$t('@@title@@')" ></DxColumn>
-`;
-let title = ` <div class="title">{{ $t('@@title@@') }}</div>`
-// let inputModule = `    
-//     `+ title + `
-//     <div class="cont">
-//       <el-input id="@@fieldID@@" v-model="@@searchModal@@"
-//         :placeholder="$t('common.pleaseInput')" />
-//     </div>
-//     `;
+let commentModule = `/* @@comment@@ */ `;
 
-let selectModule = `
-     <DxColumn  id="@@fieldID@@"
-          data-field="@@searchModal@@"
-          data-type="string"
-            :customize-text="formatInvoiceType"
-          :caption="$t('@@title@@')" ></DxColumn>
-`;
-
-//期间,yyyyMM
-let dateModule = `    
-      <DxColumn  id="@@fieldID@@"
-          data-field="@@searchModal@@"
-          data-type="datetime"
-          format="yyyy-MM-dd"
-          :caption="$t('@@title@@')" ></DxColumn>`;
-
-//时间yyyyMMdd
-let dateTimeModule = `
-    <DxColumn  id="@@fieldID@@"
-          data-field="@@searchModal@@"
-          data-type="datetime"
-          format="yyyy-MM-dd"
-          :caption="$t('@@title@@')" ></DxColumn>
-
-`;
 //数字
-let numberModule = `
-         <DxColumn  id="@@fieldID@@"
-          data-field="@@searchModal@@"
-                data-type="number"
-          format="#,##0.00"
-          :caption="$t('@@title@@')" ></DxColumn>`;
+let inputModule = `
+    @ValidateFieldAnnotation(value = "@@searchModal@@", required = true, transField = "@@title@@")
+    private String @@searchModal@@;`;
 
+let dateModule = `
+    @ValidateFieldAnnotation(value = "@@searchModal@@", required = true, transField = "@@title@@",format = "yyyy-MM-dd")
+    private Date @@searchModal@@;`;
+
+
+let numberModule = `
+    @ValidateFieldAnnotation(value = "@@searchModal@@", required = true, transField = "@@title@@")
+    private BigDecimal @@searchModal@@;`;
 
 //查询drawer map
 let queryDrawerMap = {
   input: inputModule,
-  select: selectModule,
+  select: inputModule,
   number: numberModule,
   date: dateModule,
-  dateTime: dateTimeModule
+  dateTime: dateModule
 }
 
 export default {
@@ -125,7 +91,7 @@ export default {
 
 
         if (item.comment) {
-          template = formatter.parseExpr(commentModule, item.comment) + template + '\r\n';
+          template = formatter.parseExpr(commentModule, item.comment) + template + "\r\n \r\n";
         }
 
         result += template;

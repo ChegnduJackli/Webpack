@@ -19,7 +19,7 @@
 import { formatter } from './formatter';
 
 
-let commotModule = `<!-- @@comment@@ --> `;
+let commentModule = `<!-- @@comment@@ --> `;
 
 
 let inputModule = `    

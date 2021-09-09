@@ -13,3 +13,29 @@ export function mybatisPlusTest () {
         method: "get",
     });
 }
+
+export function sendSapOrder (data) {
+    return request({
+        url: `/motor/outputMotor/sendSapOrder`,
+        method: "post",
+        data
+    });
+}
+
+export function getCallBackInvoice () {
+    return request({
+        url: `/motor/outputMotor/getCallBackInvoice`,
+        method: "get",
+
+    });
+}
+
+
+export function getHLYInvoice (data) {
+    return request({
+        url: `/scanner/getHLYInvoice`,
+        method: "post",
+        data
+
+    });
+}

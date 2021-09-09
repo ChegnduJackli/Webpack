@@ -19,7 +19,7 @@
 import { formatter } from './formatter';
 
 
-let commotModule = `<!-- @@comment@@ --> `;
+let commentModule = `<!-- @@comment@@ --> `;
 let title = ` <div class="title">{{ $t('@@title@@') }}</div>`
 let inputModule = `    
     `+ title + `
@@ -166,7 +166,7 @@ export default {
         // }
 
         if (item.comment) {
-          template = formatter.parseExpr(commotModule, item.comment) + template;
+          template = formatter.parseExpr(commentModule, item.comment) + template;
         }
 
         result += template;
