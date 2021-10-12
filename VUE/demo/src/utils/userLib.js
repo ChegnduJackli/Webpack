@@ -22,6 +22,14 @@ export function sendSapOrder (data) {
     });
 }
 
+export function sendVatOrder (data) {
+    return request({
+        url: `/motor/outputMotor/sendVatOrder`,
+        method: "post",
+        data
+    });
+}
+
 export function getCallBackInvoice () {
     return request({
         url: `/motor/outputMotor/getCallBackInvoice`,

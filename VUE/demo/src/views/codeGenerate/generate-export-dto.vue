@@ -98,7 +98,7 @@ export default {
 
       });
       console.log(result);
-      this.codeResult = result;
+      // this.codeResult = result;
     },
   },
 };

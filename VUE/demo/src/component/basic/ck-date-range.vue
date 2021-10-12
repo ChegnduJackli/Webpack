@@ -1,18 +1,24 @@
 <template>
-  <!-- <DxNumberBox :value="value"
-    :format="format"
-    showClearButton
-    :placeholder="$t('common.pleaseInput')"
-    @change="changeEvent" />-->
-  <div class="el-date-editor el-range-editor el-input__inner el-date-editor--daterange el-range-editor--medium is-active">
-    <ck-number-box :value.sync="amountFrom"
-      class="el-range-input"></ck-number-box>
+
+  <div class="flex-row">
+    <el-date-picker v-model="dateFromCopy"
+      type="date"
+      v-bind="$attrs"
+      :format="format"
+      :value-format="format"
+      placeholder="选择日期">
+    </el-date-picker>
 
     <span id="xx2"
       class="range-separator mr10">-</span>
 
-    <ck-number-box :value.sync="amountFrom"
-      class="el-range-input"></ck-number-box>
+    <el-date-picker v-model="dateToCopy"
+      type="date"
+      v-bind="$attrs"
+      :format="format"
+      :value-format="format"
+      placeholder="选择日期">
+    </el-date-picker>
   </div>
 </template> 
 
@@ -21,7 +27,7 @@
 .el-select,
 .el-input-number,
 .el-date-editor.el-input {
-  width: 100%;
+  // width: 100%;
 }
 .input-range {
   appearance: none;
@@ -48,12 +54,6 @@
   line-height: 28px;
   font-size: 14px;
 }
-
-/deep/ .el-input__inner {
-  height: 100%;
-  line-height: 100%;
-  border: 0;
-}
 </style>
 
 <script>
@@ -68,40 +68,52 @@ export default {
     //DxNumberBox
   },
   props: {
-    value: {
+    dateFrom: {
+      default: '',
+    },
+    dateTo: {
       default: '',
     },
     format: {
-      default: '#,##0'
-    },
-    min: {
-      type: Number,
-      default: -9999999999999
-    },
-    max: {
-      type: Number,
-      default: 9999999999999
+      default: 'yyyy-MM-dd',
     }
+
+
   },
 
   data () {
     return {
-      valueCopy: this.value,
-      oldValueStr: '',
-      oldValueNum: null,
+      dateFromCopy: this.dateFrom,
+      dateToCopy: this.dateTo,
     };
   },
+  computed: {
+    // dateFromCopy () {
+    //   return this.dateFrom
+    // },
+    // dateToCopy () {
+    //   return this.dateTo
+    // },
+  },
   watch: {
-    value: {
+    dateToCopy: {
       handler (val) {
-        if (!val || val === '') {
-          this.valueCopy = '';
+        if (this.dateToCopy && this.dateFromCopy) {
+          if (this.dateToCopy < this.dateFromCopy) {
+            this.dateToCopy = this.dateFromCopy;
+          }
         }
+        this.$emit("update:dateTo", this.dateToCopy)
       },
       //最初绑定的时候也执行，默认是在修改后才会执行的
       immediate: true,
       deep: true
     },
+    dateFromCopy: {
+      handler (val) {
+        this.$emit("update:dateFrom", val)
+      }
+    }
   },
   created () {
 

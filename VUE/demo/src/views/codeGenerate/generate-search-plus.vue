@@ -19,7 +19,7 @@
 import { formatter } from './formatter';
 
 
-let commentModule = `<!-- @@comment@@ --> `;
+let commentModule = `/*-- @@comment@@ --*/ `;
 
 
 let inputModule = `    
@@ -37,16 +37,12 @@ let selectModule = `
 
 //期间,yyyyMM
 let dateModule = `    
-
-
      if (reqDto.get@@searchModalFrom@@() != null) {
             wrapper.ge(@@tableName@@::get@@searchModal@@, reqDto.get@@searchModalFrom@@());
         }
         if (reqDto.get@@searchModalTo@@() != null) {
             wrapper.le(@@tableName@@::get@@searchModal@@, reqDto.get@@searchModalTo@@());
         }
-
-
 
           `;
 
@@ -132,12 +128,14 @@ export default {
 
         let currentItem = queryDrawerMap[item.type];
         template = formatter.parseExpr(currentItem, item);
-
+        if (item.comment) {
+          template = formatter.parseExpr(commentModule, item.comment) + template + "\r\n";
+        }
         result += template;
 
       });
       console.log(result);
-      this.codeResult = result;
+      // this.codeResult = result;
     },
   },
 };

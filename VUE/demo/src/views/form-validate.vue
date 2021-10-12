@@ -9,8 +9,7 @@
       prop="name">
       <el-input v-model="ruleForm.name"
         :maxlength="200"
-        show-word-limit
-        v-cname></el-input>
+        show-word-limit />
     </el-form-item>
 
     <el-form-item label="percent"
@@ -91,13 +90,18 @@
 
     <child-form ref="childRules"
       :entityModal="ruleForm"> </child-form>
-
+    <!-- 
     <el-form-item label="金额组件">
       <ck-number-box :value.sync="amountFrom"></ck-number-box>
-    </el-form-item>
-
+    </el-form-item> -->
+    <!-- 
     <el-form-item label="金额组件范围">
       <ck-number-box-range :value.sync="amountFrom"></ck-number-box-range>
+    </el-form-item> -->
+
+    <el-form-item label="日期组件范围">
+      <ck-date-range :dateFrom.sync="ruleForm.dateFrom"
+        :dateTo.sync="ruleForm.dateTo"></ck-date-range>
     </el-form-item>
 
     <el-form-item label="select file"
@@ -152,6 +156,7 @@ export default {
   },
   data () {
     return {
+
       ruleForm: {
         name: "",
         percent: "",
@@ -167,6 +172,8 @@ export default {
         amountFrom: null,
         fileList: [],
         fileName: '',
+        dateFrom: '',
+        dateTo: '',
       },
       rules: {
         percent: [
@@ -293,7 +300,8 @@ export default {
       return false;
     },
     submitForm (formName) {
-
+      console.log(this.ruleForm);
+      return;
       let fileList = this.$refs.upload.$children[0].fileList;
       if (fileList.length > 0) {
         console.log('fileList', fileList);

@@ -25,7 +25,7 @@ class CommonFunc {
             if (config.method.toLowerCase() != 'get') {
                 param = param + md5(JSON.stringify(!!config.data ? config.data : {}));
             }
-            console.log('config.data', config.data);
+            console.log('config.data', JSON.stringify(config.data));
             debugger;
             param = config.method.toLowerCase() + '/' + param;
             const uuid = this.newGuid(); //防重放，//5分钟内，id不能重复
