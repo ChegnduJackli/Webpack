@@ -48,11 +48,12 @@ let selectModule = `
 
 //期间,yyyyMM
 let dateModule = `    
-`+ title + `
+    `+ title + `
           <div class="cont">
             <el-date-picker v-model="@@searchModal@@" id="@@fieldID@@"
               type="monthrange"
               format="yyyyMM"
+           
               :editable="false"
               style="width: 100%;"
               :picker-options="{
@@ -66,17 +67,18 @@ let dateModule = `
 
 //时间yyyyMMdd
 let dateTimeModule = `
-`+ title + `
+    `+ title + `
     <div class="cont">
       <el-date-picker v-model="@@searchModal@@" id="@@fieldID@@"
         type="daterange"
         :editable="false"
            format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd"
         style="width: 100%;"
         :picker-options="{
                 onPick: ({minDate, maxDate}) => {
-                  @@searchModalFrom@@ = $moment(minDate).startOf('day')
-                   @@searchModalTo@@ = $moment(maxDate).endOf('day')
+                  @@searchModalFrom@@ = $moment(minDate).format($gv.momentYYYYMMDD)
+                   @@searchModalTo@@ = $moment(maxDate).format($gv.momentYYYYMMDD)
                 }
               }" />
     </div>
@@ -134,7 +136,7 @@ export default {
       let parentCondition = 'searchPanel.condition.';
 
       let idIndex = 1;
-      let pageName = 'viim-';
+      let pageName = 'ckm-';
       let result = '';
       let dataModuleCopy = this.$_.cloneDeep(this.dataSource);
       dataModuleCopy.forEach((item) => {

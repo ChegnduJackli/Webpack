@@ -36,7 +36,7 @@ class CommonFunc {
             signToStr = `param=${param}&uuid=${uuid}&timeSpan=${timeSpan}&key=${key}`;
             // console.log(signToStr);
             signature = `sign=${CryptoJS.HmacSHA256(signToStr, token).toString()}&uuid=${uuid}&timeSpan=${timeSpan}&key=${key}`;
-            console.log('signaturea', signature);
+            console.log('signature', signature);
         } catch (e) {
             console.log(e);
         }

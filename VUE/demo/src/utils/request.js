@@ -6,6 +6,7 @@ const service = axios.create({
   //baseURL: 'http://localhost:60021/api/',
   //baseURL: 'http://localhost:8180/',
   baseURL: 'http://localhost:8180/',
+  //baseURL: 'https://vat-test.zeekrlife.com/api',
   timeout: 10000000,
   headers: { 'X-Custom-Header': 'foobar' }
 });

@@ -8,10 +8,12 @@ export const formatter = {
   //传递为data: let data={status:'1',name:'2'}
   parseExpr (expr, data) {
     // const doubleQuoteExpr = /\{\{(.+?)\}\}/g; //{{}}匹配
-    const doubleQuoteExpr = /\@\@(.+?)\@\@/g; //{{}}匹配
+    const doubleQuoteExpr = /\@\@(.+?)\@\@/g; //@@ @@匹配
     if (expr.indexOf('@@') !== -1) {
       return expr.replace(doubleQuoteExpr, (...args) => {
-        return this._getVal(args[1], data);
+        let newVal = this._getVal(args[1], data);
+        //console.log('newVal', newVal);
+        return newVal;
       })
     }
     else {
@@ -35,6 +37,12 @@ export const formatter = {
 */
   camelToUnderscore: function (str) {
     return str.replace(hyphenateRE, '_$1').toLowerCase()
+  },
+  /** //首字母大写
+ * Capitalize a string.
+ */
+  capitalize: function (str) {
+    return str.charAt(0).toUpperCase() + str.slice(1)
   },
 
 };
