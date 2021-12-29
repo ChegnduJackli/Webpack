@@ -3,63 +3,68 @@
 
     <div class="box">
       <div class="title">api增删改查</div>
-      <el-button @click="mybatisPlus">mybatisPlus</el-button>
-      <ck-btn @click="triggerSend($event)"
-        :autoLoading="true">mock motor sap order</ck-btn>
+      <div style="margin:16px;">
+        <el-button @click="mybatisPlus">mybatisPlus</el-button>
+        <ck-btn @click="triggerSend($event)"
+          :autoLoading="true">mock motor sap order</ck-btn>
 
-      <ck-btn @click="triggerStandApi($event)"
-        :autoLoading="true">mock标准api</ck-btn>
+        <ck-btn @click="triggerStandApi($event)"
+          :autoLoading="true">mock标准api</ck-btn>
 
-      <ck-btn @click="callBack($event)"
-        :autoLoading="true">callBack sap order</ck-btn>
+        <ck-btn @click="callBack($event)"
+          :autoLoading="true">callBack sap order</ck-btn>
 
-      <br>
-      <br>
+        <ck-btn @click="triggerPMAApi($event)"
+          :autoLoading="true">mock PMA </ck-btn>
 
-      order key:<el-input v-model="param.orderKey"
-        style="width:200px"></el-input>
-      <ck-btn @click="queryAPiResult($event)"
-        :autoLoading="true">查询标准api结果</ck-btn>
+        <br>
+        <br>
 
-      <br>
-      <br>
-      BW order Number:<el-input v-model="param.orderNumber"
-        style="width:200px"></el-input>
-      <ck-btn @click="queryBWOrderEvent($event)"
-        :autoLoading="true">query BW order</ck-btn>
+        order key:<el-input v-model="param.orderKey"
+          style="width:200px"></el-input>
+        <ck-btn @click="queryAPiResult($event)"
+          :autoLoading="true">查询标准api结果</ck-btn>
 
-      <ck-btn @click="issueDoorInvoiceEvent($event)"
-        :autoLoading="true">issue door Invoice</ck-btn>
+        <br>
+        <br>
+        BW order Number:<el-input v-model="param.orderNumber"
+          style="width:200px"></el-input>
+        <ck-btn @click="queryBWOrderEvent($event)"
+          :autoLoading="true">query BW order</ck-btn>
 
-      <ck-btn @click="reverseInvoiceEvent($event)"
-        :autoLoading="true">红冲door order</ck-btn>
-      <br>
-      <br>
+        <ck-btn @click="issueDoorInvoiceEvent($event)"
+          :autoLoading="true">issue door Invoice</ck-btn>
 
-      <ck-btn @click="mockhuilianyiData($event)"
-        :autoLoading="true">mock汇联易</ck-btn>
+        <ck-btn @click="reverseInvoiceEvent($event)"
+          :autoLoading="true">红冲door order</ck-btn>
+        <br>
+        <br>
 
-      <ck-btn @click="promiseTest">promise test</ck-btn>
+        <ck-btn @click="mockhuilianyiData($event)"
+          :autoLoading="true">mock汇联易</ck-btn>
 
-      <div slot="content"
-        style="height:100%">
-        <el-scrollbar wrap-style="overflow-x: hidden;"
-          style="height: 100%">
-          <el-table :data="tableData"
-            style="padding:8px">
-            <el-table-column property="username"
-              label="姓名"
-              width="150"></el-table-column>
-            <el-table-column property="birthday"
-              label="生日"
-              width="200"></el-table-column>
-            <el-table-column property="sex"
-              label="性别"></el-table-column>
-            <el-table-column property="address"
-              label="地址"></el-table-column>
-          </el-table>
+        <ck-btn @click="promiseTest">promise test</ck-btn>
 
-        </el-scrollbar>
+        <div slot="content"
+          style="height:100%">
+          <el-scrollbar wrap-style="overflow-x: hidden;"
+            style="height: 100%">
+            <el-table :data="tableData"
+              style="padding:8px">
+              <el-table-column property="username"
+                label="姓名"
+                width="150"></el-table-column>
+              <el-table-column property="birthday"
+                label="生日"
+                width="200"></el-table-column>
+              <el-table-column property="sex"
+                label="性别"></el-table-column>
+              <el-table-column property="address"
+                label="地址"></el-table-column>
+            </el-table>
+
+          </el-scrollbar>
+        </div>
       </div>
     </div>
   </div>
@@ -117,7 +122,7 @@ import elementTable from "../component/element-table.vue";
 import {
   getUserList, mybatisPlusTest, sendSapOrder, getCallBackInvoice,
   getHLYInvoice, sendVatOrder, queryVatInvoiceList, queryBWOrder,
-  reverseInvoice, issueDoorInvoice
+  reverseInvoice, issueDoorInvoice, sendPMAOrder
 } from "../utils/userLib";
 
 export default {
@@ -136,13 +141,14 @@ export default {
   },
   created () {
     this.init();
+    this.test2();
   },
   methods: {
     mybatisPlus () {
       mybatisPlusTest();
     },
     init () {
-      console.log('this.$auth.getAccessToken()', this.$auth.getAccessToken());
+      // console.log('this.$auth.getAccessToken()', this.$auth.getAccessToken());
       getUserList().then((res) => {
         console.log(res);
         this.tableData = res.data;
@@ -173,7 +179,7 @@ export default {
     issueDoorInvoiceEvent (done) {
       let dto = {
         "action": "01", //01开具，02红冲
-        "orderNumber": "test2021111056120309", //订单号
+        "orderNumber": "test2021111056120315", //订单号
         "buyerName": "李大哥",
         "buyerTaxNumber": "234234RRTE23412010",
         "buyerEmail": "jack.d.li@cn.pwc.com",
@@ -182,7 +188,7 @@ export default {
         "buyerTelNo": "3242343243",
         "buyerBankName": "中国工商银行",
         "buyerBankAccount": "34324243242432",
-        "buyerType": "02", //01企业（电专），02个人（电普）
+        "buyerType": "01", //01企业（电专），02个人（电普）
         "orderDate": "2021-11-12",
         "amount": 75,
         "items": [
@@ -271,6 +277,38 @@ export default {
 
       };
 
+      // let dto2 = {
+      //   "order": "H003SO2112090031",
+      //   "storeId": "H003",
+      //   "storeName": "交付中心 | 上海手拉手",
+      //   "orderDate": "2021-12-09",
+      //   "orderAmount": 2,
+      //   "hTextFiled1": "30.000",
+      //   "hTextFiled2": "2.000",
+      //   "hTextFiled3": "1.000",
+      //   "hTextFiled4": "10",
+      //   "lineItemNos": [
+      //     {
+      //       "sku": "ceshi---001",
+      //       "skuName": "衣服",
+      //       "skuCateGoryCode": "ZKFP",
+      //       "skuCateGoryName": "服配",
+      //       "qty": 2,
+      //       "price": 2,
+      //       "remark": null,
+      //       "unit": null,
+      //       "specification": null,
+      //       "originalAmount": 30,
+      //       "pointsAmount": 1,
+      //       "descountAmount": 28,
+      //       "actualAmount": 2,
+      //       "iTextFiled1": null,
+      //       "iTextFiled2": null,
+      //       "iTextFiled3": null,
+      //       "iTextFiled4": null
+      //     }
+      //   ]
+      // };
 
       issueDoorInvoice(dto).then((res) => {
         console.log('reverseInvoice', res);
@@ -280,7 +318,7 @@ export default {
     },
     reverseInvoiceEvent (done) {
       let dto = {
-        originalOrder: "test2021111056120309",
+        originalOrder: "test2021111056120310",
         returnOrder: "30333",
 
       }
@@ -293,36 +331,37 @@ export default {
     },
     mockhuilianyiData (done) {
 
+      let suffix = '40';
       let dto = {
-        "transmissionId": "100010036",
-        "claimNumber": "1000102736",
+        "transmissionId": "1000100" + suffix,
+        "claimNumber": "10001027" + suffix + 3,
         "claimBy": "王五",
         "invoiceList": [
           {
-            "invoiceCode": "1000021026",
-            "invoiceNumber": "100002126",
+            "invoiceCode": "10000210" + suffix,
+            "invoiceNumber": "1000021" + suffix,
             "invoiceDate": "2021-09-07",
-            "invoiceType": "03",
+            "invoiceType": "04",
             "buyerName": "卓莓企业管理（上海）有限公司",
             "buyerTaxNumber": "91310000MA1FL1CQ9N",
-            "buyerAddress": "上海市长宁区娄山关路523号9楼06单元",
-            "buyerPhone": "021-62758288",
-            "buyerBankName": "中国建设银行",
-            "buyerBankAccount": "6222000088880000888",
+            "buyerAddressAndPhone": "上海市长宁区娄山关路523号9楼06单元021-62758288",
+            // "buyerPhone": "021-62758288",
+            "buyerBankNameAndAccount": "中国建设100银行6222000088880000888",
+            //"buyerBankAccount": "6222000088880000888",
             "sellerName": "普华永道个人税务咨询（上海）有限公司",
             "sellerTaxNumber": "913100006624786873",
-            "sellerAddress": "上海市黄浦区湖滨路202号",
-            "sellerPhone": "021-23238888 ",
-            "sellerBankName": "渣打银行（中国）有限公司上海分行",
-            "sellerBankAccount": "404061",
+            "sellerAddressAndPhone": "上海市黄浦区湖滨路202号021-23238888",
+            // "sellerPhone": "021-23238888 ",
+            "sellerBankNameAndAccount": "渣打银行（中国）有限101耗公司上海分行404061",
+            // "sellerBankAccount": "404061",
             "amount": "2000",
             "taxAmount": "200",
             "totalAmount": "2200",
-            "checkCode": "100002",
+            "checkCode": "47298561873303380457",
             "invalidStatus": "N",
-            "remark": "100002",
+            "remark": "remark test",
             "imageId": "1002",
-            "imageUrl": "http://10.157.107.80:9900/outputinvoice/SY82021080132.pdf?Content-Disposition=attachment%3B%20filename%3D%22SY82021080132.pdf%22&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=admin%2F20211208%2F%2Fs3%2Faws4_request&X-Amz-Date=20211208T092725Z&X-Amz-Expires=432000&X-Amz-SignedHeaders=host&X-Amz-Signature=aae412b0dca00cbfa487c78356f485b1484f85483ed693b1bb6cf4da9283d4f0",
+            "imageUrl": "",
             "fileName": "SY82021080132.pdf",
             "itemList": [
               {
@@ -361,6 +400,7 @@ export default {
           }
         ]
       };
+
       getHLYInvoice(dto).then((res) => {
         console.log('getHLYInvoice', res);
       }).finally(() => {
@@ -375,17 +415,100 @@ export default {
       return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     },
 
+
+    triggerPMAApi (done) {
+      /**问题
+       * 1,如果多个订单，有一个存在了，其他的怎么处理？
+       * 
+      */
+
+      let batchNo = '117';
+      let data = {
+        "action": '01', //01开票，02 红冲
+        "orderKey": this.newGuid(),
+        "batchNo": batchNo,
+        // "toIssueInvoice": "02", //01 开票， 02 不开
+        "invoiceList": [
+          {
+            "seqNo": 1, //序号
+            "invoiceType": '03', //01电子普票，02电专,03，纸普，04纸质专票,
+            "invoiceCategory": "01", //01:机动车电专, 02:普通电专
+            "sellerOrgCode": '3391', //3391
+            "buyerOrgCode": '3378',
+            //"orderNo": "", //订单号，需要造，batchNo+seqNo
+            "lineCount": "2", //开票行项目个数? 明细个数？
+            "buyerEmail": 'test23432@com.cn',
+            "remark": 'test remark',
+            "items": [
+              {
+                "productName": '极氪001',
+                "specification": 'vin1',
+                "amount": '20', //含税
+                //"quantity": '1', //后台写死 1
+              },
+              {
+                "productName": '极氪001',
+                "specification": 'vin2',
+                "amount": '20', //含税
+              },
+            ]
+          },
+          {
+            "seqNo": 2,
+            "invoiceType": '03', //01电子普票，02电专,03，纸普，04纸质专票,
+            "invoiceCategory": "01", //01:机动车电专, 02:普通电专
+            "sellerOrgCode": '3391',
+            "buyerOrgCode": '3378',
+            "buyerEmail": 'test23432@com.cn',
+            "remark": 'test remark',
+            "items": [
+              {
+                "productName": '极氪001',
+                "specification": 'vin3',
+                "amount": '20', //含税
+
+              },
+            ]
+          },
+          {
+            "seqNo": 3,
+            "invoiceType": '03', //01电子普票，02电专,03，纸普，04纸质专票,
+            "invoiceCategory": "01", //01:机动车电专, 02:普通电专
+            "sellerOrgCode": '3391',
+            "buyerOrgCode": '3378',
+            "buyerEmail": 'test23432@com.cn',
+            "remark": 'test remark',
+            "items": [
+              {
+                "productName": '极氪001',
+                "specification": 'vin3',
+                "amount": '20', //含税
+              },
+            ]
+          },
+        ]
+      };
+
+
+      sendPMAOrder(data).then((res) => {
+        console.log(res);
+      }).finally(() => {
+        done();
+      })
+    },
+
+    //sap
     mockData () {
 
       let arr = [];
-      let type = '01';
-      for (let i = 426; i < 427; i++) {
+      let type = '02';
+      for (let i = 503; i < 505; i++) {
         let data = {
           "IV_TYPE": type, //01,机动车，02，软件，03,总公司发票
           "IV_ACTION": '01', //01开票，02 红冲
           "KEY": this.newGuid(),
-          "GMFLX": '02', //01企业，02个人
-          "IV_FPTYPE": '01', //01电子普票，02电专,04纸质普票,
+          "GMFLX": '01', //01企业，02个人
+          "IV_FPTYPE": '02', //01电子普票，02电专,04纸质普票,
           "ORDER": '3502041549952150003' + i,
           "NAME": 'jackTest' + i, //企业或者个人名称
           "ZNSH": 'MA350204154995215000' + i, //购方税号
@@ -439,67 +562,151 @@ export default {
 
     triggerStandApi (done) {
 
+      // let arr = {
+      //   "Action": '01', //01开票，02 红冲
+      //   "OrderKey": this.newGuid(),
+      //   "InvoiceType": '01', //01电子普票，02电专,04纸质普票,
+      //   "OrderNumber": '202109091000120314',
+      //   "BuyerName": '李大哥',
+      //   "BuyerTaxNumber": '644493049812444587',
+      //   "BuyerBankName": '工商银行',
+      //   "BuyerBankAccount": '622299990987778653299',
+      //   "BuyerAddress": '成都来福士广场',
+      //   "BuyerPhoneNo": '13888889999',
+      //   "BuyerEmail": 'zhouxingchi@pwc.com',
+      //   "OrgCode": '3368',
+
+      //   "IsNeedSend": '是',
+      //   "ReceiverName": '老王',
+      //   "ReceiverPhone": '老王电话',
+      //   "ReceiverAddress": '老王地址',
+      //   "Remark": '备注',
+      //   "OldInvoiceCode": '1137198351',
+      //   "OldInvoiceNumber": '60907407',
+      //   "Items": [
+      //     {
+      //       "ProductName": '全车太阳膜（深色）',
+      //       "Specification": '规格型号',
+      //       "Amount": '20', //含税
+      //       "TaxRate": '0.06',
+      //       "Discount": "-10", //含税
+      //       "Unit": '个',
+      //       "Quantity": '1',
+      //     },
+      //     {
+      //       "ProductName": '全车太阳膜（浅色）',
+      //       "Specification": '规格型号',
+      //       "Amount": '30', //含税
+      //       "TaxRate": '0.06',
+      //       "Discount": "-10", //含税
+      //       "Unit": '个',
+      //       "Quantity": '1',
+      //     },
+      //     //         {
+      //     // "ProductName": '即可',
+      //     //           "Specification": '规格型号',
+      //     //           "Amount": '20000',
+      //     //           "TaxRate": '0.13',
+      //     //           "Unit": '个',
+      //     //           "Quantity": '1'
+      //     //         },
+      //     {
+
+      //       "ProductName": "甜点",
+      //       "Quantity": 4,
+
+      //       "Unit": '个',
+      //       "Specification": '规格型号',
+      //       "TaxRate": '0.06',
+      //       "Amount": 400
+      //     },
+      //     // {
+
+      //     //   "ProductName": "饮品",
+      //     //   "Quantity": 1,
+
+      //     //   "Unit": '个',
+      //     //   "Specification": '规格型号',
+      //     //   "TaxRate": '0.06',
+      //     //   "Amount": 200
+      //     // },
+      //   ]
+      // };
+
       let arr = {
-        "Action": '02', //01开票，02 红冲
+        "Action": '01', //01开票，02 红冲
         "OrderKey": this.newGuid(),
-        "InvoiceType": '01', //01电子普票，02电专,04纸质普票,
-        "OrderNumber": '202109091000120302',
-        "BuyerName": '李大哥',
+        "InvoiceType": '02', //01电子普票，02电专,03,纸普，04纸质普票,
+        "OrderNumber": '202109091000121511',
+        "BuyerName": '标准API测试-name同amount不同测单价',
         "BuyerTaxNumber": '644493049812444587',
         "BuyerBankName": '工商银行',
         "BuyerBankAccount": '622299990987778653299',
         "BuyerAddress": '成都来福士广场',
         "BuyerPhoneNo": '13888889999',
         "BuyerEmail": 'zhouxingchi@pwc.com',
-        "OrgCode": '3368',
-
+        "OrgCode": '3394',
         "IsNeedSend": '是',
         "ReceiverName": '老王',
         "ReceiverPhone": '老王电话',
         "ReceiverAddress": '老王地址',
         "Remark": '备注',
-        "OldInvoiceCode": '1137198351',
-        "OldInvoiceNumber": '60907407',
+        "OldInvoiceCode": '1189699781',
+        "OldInvoiceNumber": '32351726',
         "Items": [
           {
-            "ProductName": 'OTA',
-            "Specification": '规格型号',
-            "Amount": '10000', //含税
-            "TaxRate": '0.13',
+            "ProductName": '全车太阳膜（深色）',
+            "Specification": '全车太阳膜（深色）',
+            "Amount": '200', //含税
+            "Discount": '-10',
             "Unit": '个',
             "Quantity": '1'
           },
-          //         {
-          // "ProductName": '即可',
-          //           "Specification": '规格型号',
-          //           "Amount": '20000',
-          //           "TaxRate": '0.13',
-          //           "Unit": '个',
-          //           "Quantity": '1'
-          //         },
           {
-
-            "ProductName": "甜点",
-            "Quantity": 4,
-
+            "ProductName": '全车太阳膜（浅色）',
+            "Specification": '全车太阳膜（浅色）',
+            "Amount": '20000',
             "Unit": '个',
-            "Specification": '规格型号',
-            "TaxRate": '0.06',
-            "Amount": 400
+            "Discount": '-10000',
+            "TaxRate": '0.13',
+            "Quantity": '1'
           },
           {
-
-            "ProductName": "饮品",
-            "Quantity": 1,
-
+            "ProductName": '全车太阳膜（浅色）',
+            "Specification": '全车太阳膜（浅色）',
+            "Amount": '15000',
             "Unit": '个',
-            "Specification": '规格型号',
-            "TaxRate": '0.06',
-            "Amount": 200
+            "TaxRate": '0.13',
+            "Quantity": '1'
+          }
+          /*,
+          {
+          
+          
+          
+          "ProductName": "甜点",
+          "Quantity": 4,
+          
+          
+          
+          "Unit": '个',
+          "Specification": '规格型号',
+          "TaxRate": '0.06',
+          "Amount": 400
           },
+          {
+          
+          
+          
+          "ProductName": "饮品",
+          "Quantity": 1,
+          "Unit": '个',
+          "Specification": '规格型号',
+          "TaxRate": '0.06',
+          "Amount": 200
+          }*/
         ]
-      }
-
+      };
 
       sendVatOrder(arr).then((res) => {
         console.log(res);
@@ -550,8 +757,9 @@ export default {
           }
         }
       }
-
-      console.log(maxArr);
+      console.log('最长连续非0的子数组');
+      console.log('原数组', arr);
+      console.log('最长连续子数组', maxArr);
 
     },
     timeout (ms) {

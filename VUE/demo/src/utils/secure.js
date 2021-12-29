@@ -13,6 +13,7 @@ class CommonFunc {
     }
 
     uuid () {
+
         return uuidv4();
     }
     signature (config) {
@@ -26,15 +27,17 @@ class CommonFunc {
                 param = param + md5(JSON.stringify(!!config.data ? config.data : {}));
             }
             console.log('config.data', JSON.stringify(config.data));
+
             debugger;
             param = config.method.toLowerCase() + '/' + param;
+            console.log('param', param);
             const uuid = this.newGuid(); //防重放，//5分钟内，id不能重复
             const key = 'apikey20210901';
             const token = 'TTMP20210901'; //加密token,
-            const timeSpan = Date.parse(new Date()); //5分钟内有效
+            const timeSpan = Date.parse(new Date()); //5分钟内有效 
 
             signToStr = `param=${param}&uuid=${uuid}&timeSpan=${timeSpan}&key=${key}`;
-            // console.log(signToStr);
+            console.log(signToStr);
             signature = `sign=${CryptoJS.HmacSHA256(signToStr, token).toString()}&uuid=${uuid}&timeSpan=${timeSpan}&key=${key}`;
             console.log('signature', signature);
         } catch (e) {

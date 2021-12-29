@@ -84,3 +84,13 @@ export function getHLYInvoice (data) {
 
     });
 }
+
+
+export function sendPMAOrder (data) {
+    return request({
+        url: `/motor/outputMotor/sendPMAOrder`,
+        method: "post",
+        data
+    });
+}
+

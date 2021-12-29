@@ -2,6 +2,8 @@
   <div>
 
     <div style="width: 100%;;border: 1px solid red;">
+      <b>总结：对象(或数组)在组件传递会双向赋值,数组删除用splice</b> <br>
+      <br>
       <span style="font-size: 20px;">父组件区域：</span>
       <div>传给子组件对象的值【toChildrenObj】：{{toChildrenObj}}</div>
       <div>传给子组件数组的值【toChildrenArray】：{{toChildrenArray}}</div>
@@ -136,6 +138,7 @@ export default {
         { id: 7, pid: 3, name: "Fran Parsons", title: "Developer", img: "https://cdn.balkan.app/shared/8.jpg" }
       ],
       globalQ: 5,
+      tempObj: { name: 'jack' },
 
     };
   },
@@ -157,7 +160,7 @@ export default {
     },
   },
   created () {
-    this.init();
+    // this.init();
     console.log(' _this.toChildrenObj created', this.toChildrenObj);
     this.initPromise().then((res) => {
       console.log('res2', res);
@@ -172,9 +175,9 @@ export default {
   mounted () {
     //(this.$refs.tree, this.nodes)
 
-    this.$nextTick(() => {
-      this.refreshChart3();
-    })
+    // this.$nextTick(() => {
+    //   this.refreshChart3();
+    // })
 
   }
   ,
@@ -263,7 +266,7 @@ export default {
           _this.$set(_this.toChildrenObj, 'lastName', 'lastName')
           //下面这2句话both不会响应，页面不会生效，无法选中
           //Object.assign(_this.toChildrenObj, defaultModel(), extObj);
-          //  _this.toChildrenObj = Object.assign(_this.toChildrenObj, defaultModel(), extObj);
+          // _this.toChildrenObj = Object.assign(_this.toChildrenObj, defaultModel(), extObj);
           console.log(' _this.toChildrenObj', _this.toChildrenObj);
           //_this.toChildrenObj = defaultModel();
           resolve(_this.toChildrenObj);
@@ -283,6 +286,7 @@ export default {
         Yes: { id: 1, name: "common.yes" }, No: { id: 0, name: "Common.No" },
       };
 
+      //2这种对象转换为数组的方法
       let t2 = this.$_.map(YesOrNo, (item) => item);
 
       var t = this.$ck.objectToArray(YesOrNo);

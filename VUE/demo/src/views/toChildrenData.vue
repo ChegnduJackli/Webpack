@@ -184,7 +184,7 @@ export default {
       console.log('this.entityModel', this.myObj);
     },
     addToArray () {
-      let maxItem = this.$_.maxBy(this.toChildrenArray, 'id');
+      let maxItem = this.$_.maxBy(this.dataSource, 'id');
       maxItem = maxItem || { id: 0 }
       this.dataSource.push({ id: maxItem.id + 1, name: 'xx', age: 20 });
     },
