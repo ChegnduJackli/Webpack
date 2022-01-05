@@ -179,7 +179,7 @@ export default {
     issueDoorInvoiceEvent (done) {
       let dto = {
         "action": "01", //01开具，02红冲
-        "orderNumber": "test2021111056120315", //订单号
+        "orderNumber": "H003SO2201040007", //订单号
         "buyerName": "李大哥",
         "buyerTaxNumber": "234234RRTE23412010",
         "buyerEmail": "jack.d.li@cn.pwc.com",
@@ -422,12 +422,12 @@ export default {
        * 
       */
 
-      let batchNo = '117';
+      let batchNo = '123';
       let data = {
         "action": '01', //01开票，02 红冲
         "orderKey": this.newGuid(),
         "batchNo": batchNo,
-        // "toIssueInvoice": "02", //01 开票， 02 不开
+        "toIssueInvoice": "02", //01 开票， 02 不开
         "invoiceList": [
           {
             "seqNo": 1, //序号
@@ -436,20 +436,23 @@ export default {
             "sellerOrgCode": '3391', //3391
             "buyerOrgCode": '3378',
             //"orderNo": "", //订单号，需要造，batchNo+seqNo
-            "lineCount": "2", //开票行项目个数? 明细个数？
             "buyerEmail": 'test23432@com.cn',
             "remark": 'test remark',
             "items": [
               {
                 "productName": '极氪001',
                 "specification": 'vin1',
-                "amount": '20', //含税
+                "amount": '20', //不含税
+                "taxAmount": '2.6', //不含税
+                "taxRate": '0.13', //税率
                 //"quantity": '1', //后台写死 1
               },
               {
                 "productName": '极氪001',
                 "specification": 'vin2',
-                "amount": '20', //含税
+                "amount": '20', //不含税
+                "taxAmount": '2.6', //不含税
+                "taxRate": '0.13', //税率
               },
             ]
           },
@@ -465,7 +468,9 @@ export default {
               {
                 "productName": '极氪001',
                 "specification": 'vin3',
-                "amount": '20', //含税
+                "amount": '20', //不含税
+                "taxAmount": '2.6', //不含税
+                "taxRate": '0.13', //税率
 
               },
             ]
@@ -482,7 +487,9 @@ export default {
               {
                 "productName": '极氪001',
                 "specification": 'vin3',
-                "amount": '20', //含税
+                "amount": '20', //不含税
+                "taxAmount": '2.6', //不含税
+                "taxRate": '0.13', //税率
               },
             ]
           },
@@ -501,15 +508,15 @@ export default {
     mockData () {
 
       let arr = [];
-      let type = '02';
-      for (let i = 503; i < 505; i++) {
+      let type = '03';
+      for (let i = 3; i < 4; i++) {
         let data = {
           "IV_TYPE": type, //01,机动车，02，软件，03,总公司发票
-          "IV_ACTION": '01', //01开票，02 红冲
+          "IV_ACTION": '02', //01开票，02 红冲
           "KEY": this.newGuid(),
           "GMFLX": '01', //01企业，02个人
-          "IV_FPTYPE": '02', //01电子普票，02电专,04纸质普票,
-          "ORDER": '3502041549952150003' + i,
+          "IV_FPTYPE": '01', //01电子普票，02电专,04纸质普票,
+          "ORDER": 'order2020123100' + i,
           "NAME": 'jackTest' + i, //企业或者个人名称
           "ZNSH": 'MA350204154995215000' + i, //购方税号
           "ZCLXH": '车辆类型，超跑',
@@ -527,7 +534,7 @@ export default {
           "TEL": '13866456565',
           "BUKRS": 'doorNo' + i,
           "YFPDM": '1150998418',
-          "YFPHM": '96687572',
+          "YFPHM": '96687605',
           "EMAIL": 'jack.d.li@cn.pwc.com', //jack.d.li@cn.pwc.com
           "ITEMS": [
             {
