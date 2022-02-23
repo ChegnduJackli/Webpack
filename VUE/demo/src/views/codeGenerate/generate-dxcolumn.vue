@@ -39,11 +39,19 @@ let selectModule = `
      <DxColumn  id="@@fieldID@@"
           data-field="@@searchModal@@"
           data-type="string"
-            :customize-text="formatInvoiceType"
+          :customize-text="formatInvoiceType"
           :caption="$t('@@title@@')" ></DxColumn>
 `;
 
 //期间,yyyyMM
+let datePeriodModule = `    
+      <DxColumn  id="@@fieldID@@"
+          data-field="@@searchModal@@"
+          data-type="datetime"
+          data-type="string"
+          :caption="$t('@@title@@')" ></DxColumn>`;
+
+//时间yyyyMMdd
 let dateModule = `    
       <DxColumn  id="@@fieldID@@"
           data-field="@@searchModal@@"
@@ -51,12 +59,12 @@ let dateModule = `
           format="yyyy-MM-dd"
           :caption="$t('@@title@@')" ></DxColumn>`;
 
-//时间yyyyMMdd
+//时间yyyy-MM-dd HH:mm:ss
 let dateTimeModule = `
     <DxColumn  id="@@fieldID@@"
           data-field="@@searchModal@@"
           data-type="datetime"
-          format="yyyy-MM-dd"
+          format="yyyy-MM-dd HH:mm:ss"
           :caption="$t('@@title@@')" ></DxColumn>
 
 `;
@@ -64,7 +72,7 @@ let dateTimeModule = `
 let numberModule = `
          <DxColumn  id="@@fieldID@@"
           data-field="@@searchModal@@"
-                data-type="number"
+         data-type="number"
           format="#,##0.00"
           :caption="$t('@@title@@')" ></DxColumn>`;
 
@@ -75,6 +83,7 @@ let queryDrawerMap = {
   select: selectModule,
   number: numberModule,
   date: dateModule,
+  datePeriod: datePeriodModule,
   dateTime: dateTimeModule
 }
 

@@ -137,6 +137,14 @@ export default new Router({
                     meta: { keepAlive: true },
                 },
                 {
+                    path: 'classStudy',
+                    name: 'elementUIDemo.classStudy',
+                    //component:async,
+                    //// 这个动态导入会返回一个 `Promise` 对象。
+                    component: () => import('../views/class-study'),
+                    meta: { keepAlive: true },
+                },
+                {
 
                     path: 'formValidate',
                     component: () => import('../views/form-validate'),

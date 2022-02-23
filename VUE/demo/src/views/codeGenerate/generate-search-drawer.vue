@@ -47,13 +47,12 @@ let selectModule = `
 `;
 
 //期间,yyyyMM
-let dateModule = `    
+let datePeriodModule = `    
     `+ title + `
           <div class="cont">
             <el-date-picker v-model="@@searchModal@@" id="@@fieldID@@"
               type="monthrange"
               format="yyyyMM"
-           
               :editable="false"
               style="width: 100%;"
               :picker-options="{
@@ -65,8 +64,9 @@ let dateModule = `
 
           </div>`;
 
-//时间yyyyMMdd
-let dateTimeModule = `
+
+//期间,yyyyMMdd
+let dateModule = `    
     `+ title + `
     <div class="cont">
       <el-date-picker v-model="@@searchModal@@" id="@@fieldID@@"
@@ -77,8 +77,29 @@ let dateTimeModule = `
         style="width: 100%;"
         :picker-options="{
                 onPick: ({minDate, maxDate}) => {
-                  @@searchModalFrom@@ = $moment(minDate).format($gv.momentYYYYMMDD)
-                   @@searchModalTo@@ = $moment(maxDate).format($gv.momentYYYYMMDD)
+                  @@searchModalFrom@@ = $moment(minDate).format('YYYY-MM-DD')
+                   @@searchModalTo@@ = $moment(maxDate).format('YYYY-MM-DD')
+                }
+              }" />
+     </div>
+
+          `;
+
+//时间yyyyMMdd hh mm ss
+//这个赋值，需要从数组中取索引 ，onpick不行，取不到时分秒
+let dateTimeModule = `
+    `+ title + `
+    <div class="cont">
+      <el-date-picker v-model="@@searchModal@@" id="@@fieldID@@"
+        type="daterange"
+        :editable="false"
+        format="yyyy-MM-dd HH:mm:ss"
+        value-format="yyyy-MM-dd HH:mm:ss"
+        style="width: 100%;"
+        :picker-options="{
+                onPick: ({minDate, maxDate}) => {
+                  @@searchModalFrom@@ = $moment(minDate).format('YYYY-MM-DD HH:mm:ss')
+                   @@searchModalTo@@ = $moment(maxDate).format('YYYY-MM-DD HH:mm:ss')
                 }
               }" />
     </div>
@@ -103,6 +124,7 @@ let queryDrawerMap = {
   input: inputModule,
   select: selectModule,
   number: numberModule,
+  datePeriod: datePeriodModule,
   date: dateModule,
   dateTime: dateTimeModule
 }

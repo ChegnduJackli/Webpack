@@ -74,6 +74,7 @@ let queryDrawerMap = {
   select: selectModule,
   number: numberModule,
   date: dateModule,
+  datePeriod: dateModule,
   dateTime: dateTimeModule
 }
 

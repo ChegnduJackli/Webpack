@@ -3,7 +3,8 @@
   <el-form :model="ruleForm"
     :rules="rules"
     ref="ruleForm"
-    label-width="100px"
+    label-position="right"
+    label-width="150px"
     class="demo-ruleForm">
     <el-form-item label="活动名称"
       prop="name">
@@ -88,8 +89,8 @@
         :taxNo.sync="taxNo"></org-permission>
     </el-form-item> -->
 
-    <child-form ref="childRules"
-      :entityModal="ruleForm"> </child-form>
+    <!-- <child-form ref="childRules"
+      :entityModal="ruleForm"> </child-form> -->
     <!-- 
     <el-form-item label="金额组件">
       <ck-number-box :value.sync="amountFrom"></ck-number-box>

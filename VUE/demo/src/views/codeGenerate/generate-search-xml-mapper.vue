@@ -38,7 +38,7 @@ let selectModule = `
 `;
 
 //期间,yyyyMM
-let dateModule = `    
+let datePeriodModule = `    
     <if test="@@searchModalFrom@@!=null and @@searchModalFrom@@!=''">
                 and @@fieldName@@ <![CDATA[ >= ]]> #{@@searchModalFrom@@}
             </if>
@@ -48,12 +48,23 @@ let dateModule = `
           `;
 
 //时间yyyyMMdd
-let dateTimeModule = `
+let dateModule = `
        <if test="@@searchModalFrom@@  != null">
                 and DATE_FORMAT(@@fieldName@@, '%Y-%m-%d') >= DATE_FORMAT(#{@@searchModalFrom@@ }, '%Y-%m-%d')
             </if>
             <if test="@@searchModalTo@@ != null">
                 and DATE_FORMAT(@@fieldName@@, '%Y-%m-%d') <= DATE_FORMAT(#{@@searchModalTo@@}, '%Y-%m-%d')
+            </if>
+
+`;
+
+//时间yyyyMMdd hh:mm:ss
+let dateTimeModule = `
+       <if test="@@searchModalFrom@@  != null">
+                and DATE_FORMAT(@@fieldName@@, '%Y-%m-%d %H:%i:%s') >= DATE_FORMAT(#{@@searchModalFrom@@ }, '%Y-%m-%d %H:%i:%s')
+            </if>
+            <if test="@@searchModalTo@@ != null">
+                and DATE_FORMAT(@@fieldName@@, '%Y-%m-%d %H:%i:%s') <= DATE_FORMAT(#{@@searchModalTo@@}, '%Y-%m-%d %H:%i:%s')
             </if>
 
 `;
@@ -74,6 +85,7 @@ let queryDrawerMap = {
   input: inputModule,
   select: selectModule,
   number: numberModule,
+  datePeriod: datePeriodModule,
   date: dateModule,
   dateTime: dateTimeModule
 }

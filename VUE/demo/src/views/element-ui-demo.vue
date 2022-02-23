@@ -23,6 +23,11 @@
               active-class="active">Dialog
             </router-link>
           <li>
+          <li>
+            <router-link :to="{ name: 'elementUIDemo.classStudy' }"
+              active-class="active">es6 class study
+            </router-link>
+          <li>
             <router-link :to="{ name: 'elementUIDemo.formValidate' }"
               active-class="active">form
               validate</router-link>

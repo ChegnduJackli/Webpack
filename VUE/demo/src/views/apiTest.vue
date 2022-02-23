@@ -122,7 +122,7 @@ import elementTable from "../component/element-table.vue";
 import {
   getUserList, mybatisPlusTest, sendSapOrder, getCallBackInvoice,
   getHLYInvoice, sendVatOrder, queryVatInvoiceList, queryBWOrder,
-  reverseInvoice, issueDoorInvoice, sendPMAOrder
+  reverseInvoice, issueDoorInvoice, sendPMAOrder, checkVersion
 } from "../utils/userLib";
 
 export default {
@@ -331,7 +331,7 @@ export default {
     },
     mockhuilianyiData (done) {
 
-      let suffix = '40';
+      let suffix = '45';
       let dto = {
         "transmissionId": "1000100" + suffix,
         "claimNumber": "10001027" + suffix + 3,
@@ -341,9 +341,9 @@ export default {
             "invoiceCode": "10000210" + suffix,
             "invoiceNumber": "1000021" + suffix,
             "invoiceDate": "2021-09-07",
-            "invoiceType": "04",
+            "invoiceType": "04", //"01", "04", "08", "10","14"
             "buyerName": "卓莓企业管理（上海）有限公司",
-            "buyerTaxNumber": "91310000MA1FL1CQ9N",
+            // "buyerTaxNumber": "91310000MA1FL1CQ9N",
             "buyerAddressAndPhone": "上海市长宁区娄山关路523号9楼06单元021-62758288",
             // "buyerPhone": "021-62758288",
             "buyerBankNameAndAccount": "中国建设100银行6222000088880000888",
@@ -422,79 +422,84 @@ export default {
        * 
       */
 
-      let batchNo = '123';
-      let data = {
-        "action": '01', //01开票，02 红冲
-        "orderKey": this.newGuid(),
-        "batchNo": batchNo,
-        "toIssueInvoice": "02", //01 开票， 02 不开
-        "invoiceList": [
-          {
-            "seqNo": 1, //序号
-            "invoiceType": '03', //01电子普票，02电专,03，纸普，04纸质专票,
-            "invoiceCategory": "01", //01:机动车电专, 02:普通电专
-            "sellerOrgCode": '3391', //3391
-            "buyerOrgCode": '3378',
-            //"orderNo": "", //订单号，需要造，batchNo+seqNo
-            "buyerEmail": 'test23432@com.cn',
-            "remark": 'test remark',
-            "items": [
-              {
-                "productName": '极氪001',
-                "specification": 'vin1',
-                "amount": '20', //不含税
-                "taxAmount": '2.6', //不含税
-                "taxRate": '0.13', //税率
-                //"quantity": '1', //后台写死 1
-              },
-              {
-                "productName": '极氪001',
-                "specification": 'vin2',
-                "amount": '20', //不含税
-                "taxAmount": '2.6', //不含税
-                "taxRate": '0.13', //税率
-              },
-            ]
-          },
-          {
-            "seqNo": 2,
-            "invoiceType": '03', //01电子普票，02电专,03，纸普，04纸质专票,
-            "invoiceCategory": "01", //01:机动车电专, 02:普通电专
-            "sellerOrgCode": '3391',
-            "buyerOrgCode": '3378',
-            "buyerEmail": 'test23432@com.cn',
-            "remark": 'test remark',
-            "items": [
-              {
-                "productName": '极氪001',
-                "specification": 'vin3',
-                "amount": '20', //不含税
-                "taxAmount": '2.6', //不含税
-                "taxRate": '0.13', //税率
+      let batchNo = '146';
+      let data = [];
+      for (let i = 166; i < 170; i++) {
+        batchNo = i + '';
+        let obj = {
+          "action": '01', //01开票，02 红冲
+          "orderKey": this.newGuid(),
+          "batchNo": batchNo,
+          //"toIssueInvoice": "02", //01 开票， 02 不开
+          "invoiceList": [
+            {
+              "seqNo": 1, //序号
+              "invoiceType": '02', //01电子普票，02电专,03，纸普，04纸质专票,
+              "invoiceCategory": "01", //01:机动车电专, 02:普通电专
+              "sellerOrgCode": '3391', //3391
+              "buyerOrgCode": '3378',
+              //"orderNo": "", //订单号，需要造，batchNo+seqNo
+              "buyerEmail": 'test23432@com.cn',
+              "remark": 'test remark',
+              "items": [
+                {
+                  "productName": '极氪001',
+                  "specification": 'vin1',
+                  "amount": '20', //不含税
+                  "taxAmount": '2.6', //不含税
+                  "taxRate": '0.13', //税率
+                  //"quantity": '1', //后台写死 1
+                },
+                {
+                  "productName": '极氪001',
+                  "specification": 'vin2',
+                  "amount": '20', //不含税  
+                  "taxAmount": '2.6', //不含税
+                  "taxRate": '0.13', //税率
+                },
+              ]
+            },
+            {
+              "seqNo": 2,
+              "invoiceType": '03', //01电子普票，02电专,03，纸普，04纸质专票,
+              "invoiceCategory": "01", //01:机动车电专, 02:普通电专
+              "sellerOrgCode": '3391',
+              "buyerOrgCode": '3378',
+              "buyerEmail": 'test23432@com.cn',
+              "remark": 'test remark',
+              "items": [
+                {
+                  "productName": '极氪001',
+                  "specification": 'vin3',
+                  "amount": '20', //不含税
+                  "taxAmount": '2.6', //不含税
+                  "taxRate": '0.13', //税率
 
-              },
-            ]
-          },
-          {
-            "seqNo": 3,
-            "invoiceType": '03', //01电子普票，02电专,03，纸普，04纸质专票,
-            "invoiceCategory": "01", //01:机动车电专, 02:普通电专
-            "sellerOrgCode": '3391',
-            "buyerOrgCode": '3378',
-            "buyerEmail": 'test23432@com.cn',
-            "remark": 'test remark',
-            "items": [
-              {
-                "productName": '极氪001',
-                "specification": 'vin3',
-                "amount": '20', //不含税
-                "taxAmount": '2.6', //不含税
-                "taxRate": '0.13', //税率
-              },
-            ]
-          },
-        ]
-      };
+                },
+              ]
+            },
+            {
+              "seqNo": 3,
+              "invoiceType": '03', //01电子普票，02电专,03，纸普，04纸质专票,
+              "invoiceCategory": "01", //01:机动车电专, 02:普通电专
+              "sellerOrgCode": '3391',
+              "buyerOrgCode": '3378',
+              "buyerEmail": 'test23432@com.cn',
+              "remark": 'test remark',
+              "items": [
+                {
+                  "productName": '极氪001',
+                  "specification": 'vin3',
+                  "amount": '20', //不含税
+                  "taxAmount": '2.6', //不含税
+                  "taxRate": '0.13', //税率
+                },
+              ]
+            },
+          ]
+        };
+        data.push(obj);
+      }
 
 
       sendPMAOrder(data).then((res) => {
@@ -508,15 +513,15 @@ export default {
     mockData () {
 
       let arr = [];
-      let type = '03';
-      for (let i = 3; i < 4; i++) {
+      let type = '04';
+      for (let i = 15; i < 16; i++) {
         let data = {
-          "IV_TYPE": type, //01,机动车，02，软件，03,总公司发票
-          "IV_ACTION": '02', //01开票，02 红冲
+          "IV_TYPE": type, //01,机动车，02，软件，03,总公司发票,04总公司到批发,05,批发到子公司
+          "IV_ACTION": '01', //01开票，02 红冲
           "KEY": this.newGuid(),
           "GMFLX": '01', //01企业，02个人
-          "IV_FPTYPE": '01', //01电子普票，02电专,04纸质普票,
-          "ORDER": 'order2020123100' + i,
+          "IV_FPTYPE": '02', //01电子普票，02电专,04纸质普票,
+          "ORDER": 'order2022020212' + i,
           "NAME": 'jackTest' + i, //企业或者个人名称
           "ZNSH": 'MA350204154995215000' + i, //购方税号
           "ZCLXH": '车辆类型，超跑',
@@ -533,18 +538,18 @@ export default {
           "GSDZ": '成都龙泉',
           "TEL": '13866456565',
           "BUKRS": 'doorNo' + i,
-          "YFPDM": '1150998418',
-          "YFPHM": '96687605',
+          "YFPDM": '1176019619',
+          "YFPHM": '82255084',
           "EMAIL": 'jack.d.li@cn.pwc.com', //jack.d.li@cn.pwc.com
           "ITEMS": [
             {
-              "ZNAME": type == '02' ? 'OTA' : (type == '03' ? '极氪001' : ''), //IV_TYPE =02 OTA. IV_TYPE =03 极氪001
+              "ZNAME": type == '02' ? 'OTA' : '极氪001', //IV_TYPE =02 OTA. IV_TYPE =03 极氪001
               "ZTYPE": type == '03' ? 'vin' + i : '规格型号',
               "ZKPJE": '5000',
               "ZTAX": '0.1',
             },
             {
-              "ZNAME": type == '02' ? 'OTA' : (type == '03' ? '极氪001' : ''), //IV_TYPE =02 OTA. IV_TYPE =03 极氪001
+              "ZNAME": type == '02' ? 'OTA' : '极氪001', //IV_TYPE =02 OTA. IV_TYPE =03 极氪001
               "ZTYPE": type == '03' ? 'vin' + i : '规格型号',
               "ZKPJE": '6000',
               "ZTAX": '0.1',
@@ -554,6 +559,8 @@ export default {
         arr.push(data);
       }
       return arr;
+
+
 
     },
     mockData2 () {
@@ -641,79 +648,39 @@ export default {
       // };
 
       let arr = {
-        "Action": '01', //01开票，02 红冲
-        "OrderKey": this.newGuid(),
-        "InvoiceType": '02', //01电子普票，02电专,03,纸普，04纸质普票,
-        "OrderNumber": '202109091000121511',
-        "BuyerName": '标准API测试-name同amount不同测单价',
-        "BuyerTaxNumber": '644493049812444587',
-        "BuyerBankName": '工商银行',
-        "BuyerBankAccount": '622299990987778653299',
-        "BuyerAddress": '成都来福士广场',
-        "BuyerPhoneNo": '13888889999',
-        "BuyerEmail": 'zhouxingchi@pwc.com',
-        "OrgCode": '3394',
-        "IsNeedSend": '是',
-        "ReceiverName": '老王',
-        "ReceiverPhone": '老王电话',
-        "ReceiverAddress": '老王地址',
-        "Remark": '备注',
-        "OldInvoiceCode": '1189699781',
-        "OldInvoiceNumber": '32351726',
+        "Action": "01",
+        "OrderKey": "FP1642002942027",
+        "InvoiceType": "01",
+        "OrderNumber": "E12112236QE8W4",
+        "BuyerName": "上海菩莫商务咨询中心",
+        "BuyerTaxNumber": "91310120MA1JJA1U9Q",
+        "BuyerBankName": "",
+        "BuyerBankAccount": "",
+        "BuyerAddress": "",
+        "BuyerPhoneNo": "",
+        "BuyerEmail": "7500867@qq.com",
+        "OrgCode": "3391",
+        "OldInvoiceCode": null,
+        "OldInvoiceNumber": null,
+        "IsNeedSend": "否",
+        "ReceiverName": null,
+        "ReceiverPhone": null,
+        "ReceiverAddress": null,
+        "Remark": "",
         "Items": [
           {
-            "ProductName": '全车太阳膜（深色）',
-            "Specification": '全车太阳膜（深色）',
-            "Amount": '200', //含税
-            "Discount": '-10',
-            "Unit": '个',
-            "Quantity": '1'
-          },
-          {
-            "ProductName": '全车太阳膜（浅色）',
-            "Specification": '全车太阳膜（浅色）',
-            "Amount": '20000',
-            "Unit": '个',
-            "Discount": '-10000',
-            "TaxRate": '0.13',
-            "Quantity": '1'
-          },
-          {
-            "ProductName": '全车太阳膜（浅色）',
-            "Specification": '全车太阳膜（浅色）',
-            "Amount": '15000',
-            "Unit": '个',
-            "TaxRate": '0.13',
-            "Quantity": '1'
+            "ProductName": "001尊享服务包",
+            "Specification": "001尊享服务包",
+            "Amount": "3169.50",
+            "TaxRate": null,
+            "Discount": null,
+            "Unit": "套",
+            "Quantity": "1"
           }
-          /*,
-          {
-          
-          
-          
-          "ProductName": "甜点",
-          "Quantity": 4,
-          
-          
-          
-          "Unit": '个',
-          "Specification": '规格型号',
-          "TaxRate": '0.06',
-          "Amount": 400
-          },
-          {
-          
-          
-          
-          "ProductName": "饮品",
-          "Quantity": 1,
-          "Unit": '个',
-          "Specification": '规格型号',
-          "TaxRate": '0.06',
-          "Amount": 200
-          }*/
         ]
       };
+
+
 
       sendVatOrder(arr).then((res) => {
         console.log(res);
@@ -722,6 +689,11 @@ export default {
       })
     },
     triggerSend (done) {
+
+
+      //let arr = [{ "BUKRS": "Z010", "EMAIL": "moongood163.com", "FBUKRS": "3391", "GMFLX": "02", "GSDZ": "", "ITEMS": [{ "ZKPJE": "2400.00", "ZNAME": "OTA", "ZTAX": "0.13", "ZTYPE": "" }], "IV_ACTION": "01", "IV_FPTYPE": "01", "IV_TYPE": "02", "KEY": "52b827018df64831acd3cda5d48d960a", "MFNAME": "浙江吉利汽车有限公司", "NAME": "赵芳", "ORDER": "D0210901INLUF10", "TBUKRS": "", "TEL": "", "VIN": "L6T79P2N9NP005316", "YFPDM": "", "YFPHM": "", "YHKHH": "", "YHZH": "", "ZCD": "", "ZCLXH": "", "ZCPXH": "极氪牌", "ZFDJH": "", "ZHGZH": "", "ZNSH": "410883198108083029" }]
+
+
 
       let arr = this.mockData();
 
@@ -738,6 +710,7 @@ export default {
         OrderKeyList:
           [{ "OrderKey": this.param.orderKey }]
       };
+      checkVersion();
 
       queryVatInvoiceList(arr).then((res) => {
         console.log(res);

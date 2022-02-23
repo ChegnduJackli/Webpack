@@ -58,6 +58,14 @@ export function issueDoorInvoice (data) {
 
 
 
+export function checkVersion () {
+    return request({
+        url: `/trans/checkVersion`,
+        method: "get",
+
+    });
+}
+
 
 export function sendVatOrder (data) {
     return request({

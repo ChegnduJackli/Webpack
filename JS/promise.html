@@ -2,36 +2,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 
 
-    <script>
-        //输入!快速生成html代码
-        var promise = new Promise(function (resolve, reject) {
-            resolve('ok');
-            throw new Error('test');
-        });
-        promise
-            .then(function (value) { console.log(value) })
-            .catch(function (error) { console.log(error) });
+  <script>
+    //输入!快速生成html代码
+    var promise = new Promise(function (resolve, reject) {
+      resolve('ok');
+      throw new Error('test');
+    });
+    promise
+      .then(function (value) { console.log(value) })
+      .catch(function (error) { console.log(error) });
 
     //上面代码中，Promise在resolve语句后面，再抛出错误，不会被捕获，等于没有抛出
 
 
     // good 推荐这个写法，直接用catch
-promise
-  .then(function(data) { //cb
-    // success
-  })
-  .catch(function(err) {
-    // error
-  });
+    promise
+      .then(function (data) { //cb
+        // success
+      })
+      .catch(function (err) {
+        // error
+      });
 
 
-    </script>
+  </script>
 
 </head>
 

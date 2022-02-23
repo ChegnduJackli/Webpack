@@ -14,6 +14,8 @@
 
 </html>
 <script>
+    //vue面试
+    //https://vue3js.cn/interview/JavaScript/debounce_throttle.html#%E4%B8%80%E3%80%81%E6%98%AF%E4%BB%80%E4%B9%88
     /*
     定义
     节流: n 秒内只运行一次，若在 n 秒内重复触发，只有一次生效
@@ -42,12 +44,12 @@
     #代码实
     */
 
-    function f1(name) {
+    function f1 (name) {
         console.log('-----------printed f1 name------------', name);
     }
 
     //节流
-    function throttled1(fn, delay = 500) {
+    function throttled1 (fn, delay = 500) {
         let oldtime = Date.now()
         return function (...args) {
             console.log('args', args);
@@ -68,7 +70,7 @@
     // }, 3000);
 
     //使用定时器写法，delay毫秒后第一次执行，第二次事件停止触发后依然会再一次执行
-    function throttled2(fn, delay = 500) {
+    function throttled2 (fn, delay = 500) {
         let timer = null
         return function (...args) {
             console.log('args', args);
@@ -86,7 +88,7 @@
     // t2('rolse2');
 
 
-    function throttled(fn, delay = 500) {
+    function throttled (fn, delay = 500) {
         let timer = null
         let starttime = Date.now()
         return function () {
@@ -122,7 +124,7 @@
     // debounce 防抖：
 
     //简化版
-    function debounce2(fn, wait) {
+    function debounce2 (fn, wait) {
         var timer = null;
         return function (...args) {
             if (timer !== null) {
@@ -139,7 +141,7 @@
     // t5('m3');
 
     //
-    function debounce3(func, wait) {
+    function debounce3 (func, wait) {
         let timer;
 
         return function () {
